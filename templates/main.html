@@ -3,6 +3,19 @@
 <div class="wrap">
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 pl-3"><h1>맛집 추천 사이트</h1></span>
+        {% if login == False %}
+        <span id="login-btn" class="navbar-brand mb-0 pl-3"><h1 onclick="handleClickLoginPage()">로그인</h1></span>
+        {% else %}
+        <div class="main-profile-wrapper">
+            <div class="profile-img-wrapper small">
+                <img id="profile-img" class="profile-img" alt=""/>
+            </div>
+            <div class="account">
+                <span>{{ session['username']}}</span>
+                <span>ID: {{ session['userid']}}</span>
+            </div>
+        </div>
+        {% endif %}
     </nav>
 
     <div class="my-2 px-4">
@@ -26,7 +39,6 @@
                     <a href="#" class="card-title"><h2>가게명</h2></a>
                 </div>
             </div>
-
         </div>
     </div>
 

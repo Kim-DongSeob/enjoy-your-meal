@@ -2,6 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
+# 크롬드라이버 버전이 저랑 맞지 않아 코드 추가했습니다. -김동섭
+import chromedriver_autoinstaller
+
+# 크롬드라이버 버전이 저랑 맞지 않아 코드 추가했습니다. -김동섭
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.service import Service
+# from webdriver_manager.chrome import ChromeDriverManager
+
 from pymongo import MongoClient
 
 # localhost 용 MongoDB 연결
@@ -15,7 +23,19 @@ db = client.toyproj
 # 코딩 시작! --------------------------------------------------------------------------------------------
 
 # 셀레니움에 쓸 크롬 드라이버 시작
-driver = webdriver.Chrome()
+driver = webdriver.Chrome('')
+
+# 크롬드라이버 버전이 저랑 맞지 않아 코드 추가했습니다. -김동섭
+# chrome_options = webdriver.ChromeOptions()
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+# chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
+#
+# try:
+#     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver')
+# except:
+#     chromedriver_autoinstaller.install(True)
+#     driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe')
+
 
 # 카카오지도 들어가기
 driver.get("https://map.kakao.com/")
