@@ -1,0 +1,96 @@
+* {
+    font-family: 'Dongle', sans-serif;
+}
+
+.wrap {
+    width: 800px;
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: black;
+}
+
+/* 공통요소 및 부트스트랩 덮어 쓴 요소 */
+:root {
+    --gray50: #F9FAFB;
+    --gray100: #F6F7FB;
+    --gray200: #EEF1F7;
+    --gray300: #E6EAF4;
+    --gray400: #CBD2E3;
+    --gray500: #B5BCCD;
+    --gray600: #858DA3;
+    --gray700: #686C7E;
+    --gray800: #363A4C;
+    --gray900: #171F31;
+    --custom-primary: #0095ff;
+    --custom-secondary: #848B9F;
+    --table-header: #EEF1F7;
+    --global-bg: #F6F7FB;
+    --black: #333333;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+form .form-group label {
+    color: var(--custom-secondary);
+}
+
+button:focus, button:active {
+    box-shadow: none !important;
+}
+
+.btn.btn-default:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 회원가입, 로그인 page */
+
+.sign-up * {
+    font-family: sans-serif;
+}
+
+.sign-up {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: var(--global-bg);
+}
+
+.sign-up-wrapper {
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    border-radius: 8px;
+    width: 400px;
+    background: white;
+}
+
+.sign-up-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.sign-up-btn-group {
+    display: flex;
+    column-gap: 8px;
+}
+
+.sign-up-btn-group button {
+    width: 100%;
+}
+
+

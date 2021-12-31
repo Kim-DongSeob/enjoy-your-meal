@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
+          integrity="sha256-BJ/G+e+y7bQdrYkS2RBTyNfBHpA9IuGaPmf9htub5MQ=" crossorigin="anonymous"/>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <script type="text/javascript" src="../static/js/script.js"></script>
+    <!-- 카카오지도 api key  -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{CLIENT_ID}}&libraries=services"></script>
+    <title>사전스터디 14팀 토이프로젝트</title>
+</head>
+<body>
+
+{% block content %}
+{% endblock %}
+
+<div class="wrap">
+    <div class="container">
+        <div class="row bg-dark justify-content-center py-1">
+            <div class="mx-2">
+                <button class="btn btn-dark" role="button" onclick="main()"><h1>메인페이지</h1></button>
+            </div>
+            <div class="mx-2">
+                <button class="btn btn-dark" role="button" onclick="region()"><h1>지역별 맛집</h1></button>
+            </div>
+            <div class="mx-2">
+                <button class="btn btn-dark" role="button" onclick="menu()"><h1>메뉴별 맛집</h1></button>
+            </div>
+            <div class="mx-2">
+                <button class="btn btn-dark" role="button" onclick="review()"><h1>후 기</h1></button>
+            </div>
+            <div class="mx-2">
+                <button class="btn btn-dark" role="button" onclick="myPage()"><h1>마이페이지</h1></button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+                // 카카오 지도 만들기
+    var mapContainer = document.getElementById('map'),
+        // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
+            level: 8 // 지도의 확대 레벨
+        };
+
+    // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+</script>
+</html>
