@@ -21,6 +21,7 @@ app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024  # 파일업로드 용량 제
 client = MongoClient('localhost', 27017)
 db = client.toyproj
 
+
 # HTML 화면 보여주기
 @app.route('/')
 @app.route('/')
@@ -33,22 +34,22 @@ def home():
 @app.route('/region')
 def route_region():
     if 'userid' in session:
-        return render_template('region.html', CLIENT_ID=CLIENT_ID)
-    return render_template('region.html', CLIENT_ID=CLIENT_ID)
+        return render_template('region.html', CLIENT_ID=CLIENT_ID, login=True)
+    return render_template('region.html', CLIENT_ID=CLIENT_ID, login=False)
 
 
 @app.route('/menu')
 def route_menu():
     if 'userid' in session:
-        return render_template('menu.html')
-    return render_template('menu.html')
+        return render_template('menu.html', login=True)
+    return render_template('menu.html', login=False)
 
 
 @app.route('/review')
 def route_review():
     if 'userid' in session:
-        return render_template('review.html')
-    return render_template('review.html')
+        return render_template('review.html', login=True)
+    return render_template('review.html', login=False)
 
 
 @app.route('/mypage')
@@ -178,6 +179,30 @@ def get_profile():
 
 
 # 프로필 이미지 ---end
+
+# 메뉴별 맛집 리스트 ---start
+@app.route("/search", methods=["POST"])
+def search():
+    keyword_receive = request.form["keyword_give"]
+    select_value_receive = request.form["select_value_give"]
+
+    # regex는 db에서 특정 문자열이 포함 여부 확인
+    if select_value_receive == '전체':
+        search_list = list(db.shops
+                           .find({'name': {"$regex": keyword_receive}}, {'_id': False}))
+    elif keyword_receive == '':
+        search_list = list(db.shops.find({'gu': select_value_receive}, {'_id': False}))
+    else:
+        search_list = list(db.shops.find({'gu': select_value_receive, 'name': {"$regex": keyword_receive}}, {'_id': False}))
+
+    print(search_list)
+
+    return jsonify({'result': search_list})
+
+
+# 메뉴별 맛집 리스트 ---end
+
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8080, debug=True)

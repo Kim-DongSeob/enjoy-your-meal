@@ -83,6 +83,7 @@ function getProfileImage() {
         data: {},
         success: function (response) {
             const file = response['result']
+            $('#profile-img-small').attr('src', file['image_file'])
             $('#profile-img').attr('src', file['image_file'])
         }
     })
@@ -160,3 +161,41 @@ function doubleCheckId() {
 }
 
 // signup.html ---end
+
+// menu.html ---start
+function search() {
+    $("#menu-list").empty()
+
+    const keywordValue = $("#search-keyword").val()
+    const selectValue = $("#select-gu").val()
+    console.log(selectValue)
+
+    $.ajax({
+        type: "POST",
+        url: "/search",
+        data: {select_value_give: selectValue, keyword_give: keywordValue},
+        success: function (response) {
+            console.log(response)
+            let result = response["result"]
+
+            for (let i = 0; i < result.length; i++) {
+                let title = result[i]["name"]
+                let gu = result[i]["gu"]
+                let address = result[i]["address"]
+                let link = result[i]["link"]
+                // let address = result[i]["address"]
+                // 각 요소 추가
+
+                let temp_html = `<div class="menu-item">
+                                    <div class="title" onclick="window.open('${link}')">${title}</div>
+                                    <div class="address">${address}</div>
+                                    <button class="btn btn-primary">좋아요</button>
+                                </div>`
+
+                $("#menu-list").append(temp_html)
+            }
+        }
+    })
+}
+
+// menu.html ---end

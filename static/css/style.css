@@ -1,5 +1,6 @@
 * {
-    font-family: 'Dongle', sans-serif;
+    /*font-family: 'Dongle', sans-serif;*/
+    font-family: sans-serif;
 }
 
 .wrap {
@@ -41,7 +42,13 @@ html {
 
 body {
     height: 100%;
+    overflow: hidden;
 }
+
+@media screen and (max-width: 800px) {
+    /* 모바일에 사용될 스트일 시트를 여기에 작성합니다. */
+}
+
 
 form .form-group label {
     color: var(--custom-secondary);
@@ -55,20 +62,75 @@ button:focus, button:active {
     background: rgba(0, 0, 0, 0.1);
 }
 
+.overflow-y-auto {
+    overflow-y: overlay;
+}
+.click {
+    cursor: pointer;
+}
+
+/* index.html */
+.nav-top {
+    position: fixed;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 0;
+    z-index: 10;
+}
+.nav-top nav .navbar-brand {
+    font-family: 'Dongle', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.nav-bottom {
+    position: fixed;
+    bottom: 0;
+    transform: translateX(-50%);
+    left: 50%;
+    z-index: 10;
+}
+.nav-bottom .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 8px;
+}
+.nav-bottom .wrapper button {
+    font-family: 'Dongle', sans-serif;
+    line-height: 1;
+    font-size: 30px;
+}
+
+.nav-bottom .wrapper div {
+    text-align: center;
+}
+
+.body-wrapper {
+    margin: 56px auto 60px auto;
+    height: calc(100% - 116px);
+}
+
+#login-btn {
+    cursor: pointer;
+    color: white;
+}
+
 /* main.html */
 .main-profile-wrapper {
     display: flex;
     align-items: center;
-    padding: 1rem;
 }
+
 .main-profile-wrapper * {
     font-family: sans-serif;
 }
+
 .main-profile-wrapper .account {
     display: flex;
     flex-direction: column;
     margin-left: 8px;
 }
+
 .main-profile-wrapper .account span {
     font-size: 14px;
     color: white;
@@ -139,11 +201,13 @@ button:focus, button:active {
     justify-content: center;
     margin-left: 30px;
 }
+
 .profile-detail .user-info-wrapper {
     display: flex;
     align-items: baseline;
     margin-bottom: 16px;
 }
+
 .profile-detail .user-info-wrapper .user-id {
     margin-left: 8px;
     color: var(--gray400);
@@ -171,6 +235,7 @@ button:focus, button:active {
     background-position: center center;
     background-color: #e4e6e7;
 }
+
 .profile-img-wrapper.small {
     width: 30px;
     height: 30px;
@@ -230,4 +295,52 @@ button:focus, button:active {
 
 #file-save-btn {
     display: none;
+}
+
+/* menu.html */
+.menu-page * {
+    font-family: sans-serif;
+}
+
+.menu-page .wrapper {
+    display: flex;
+    column-gap: 8px;
+    margin: 16px 0;
+}
+
+.menu-page .wrapper .form-select {
+    width: auto;
+}
+
+.menu-page .wrapper .form-control {
+    width: auto;
+}
+
+.menu-page #menu-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    column-gap: 8px;
+    row-gap: 8px;
+}
+
+.menu-page #menu-list .menu-item {
+    padding: 16px;
+    border: 1px solid var(--gray400);
+    border-radius: 8px;
+}
+
+.menu-page #menu-list .menu-item .title {
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-page #menu-list .menu-item .title:hover {
+    font-weight: 700;
+}
+
+.menu-page #menu-list .menu-item .address {
+    font-size: 14px;
+    color: var(--custom-secondary);
 }
