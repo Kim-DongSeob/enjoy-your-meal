@@ -69,6 +69,26 @@ button:focus, button:active {
 .click {
     cursor: pointer;
 }
+.content-header {
+    display: flex;
+
+}
+.content-header .title {
+    /*display: inline-block;*/
+    /*border-bottom: 1px solid var(--custom-primary);*/
+}
+.content-header .desc {
+    font-size: 14px;
+    color: var(--custom-secondary);
+}
+.content-header .desc:before {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    background: var(--gray300);
+    margin: 0 10px;
+}
 
 /* index.html */
 .nav-top {
@@ -120,6 +140,47 @@ button:focus, button:active {
 }
 
 /* main.html */
+.banner {
+    position: relative;
+}
+
+.banner img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.banner .wrapper {
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    z-index: 8;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner .wrapper .text {
+    color: white;
+}
+
+.banner .wrapper .text.title {
+    font-family: 'Dongle', sans-serif;
+    font-size: 50px;
+    transform: translateX(-300px);
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.banner .wrapper .text.desc {
+    /*transform: translateX(300px);*/
+    opacity: 0;
+    transition: all 1s ease 0.8s;
+}
+
 .main-profile-wrapper {
     display: flex;
     align-items: center;
@@ -316,6 +377,8 @@ button:focus, button:active {
     display: flex;
     column-gap: 8px;
     margin: 16px 0;
+    /*position: fixed;*/
+    /*top: 60px;*/
 }
 
 .menu-page .wrapper .form-select {
@@ -332,6 +395,7 @@ button:focus, button:active {
     width: 100%;
     column-gap: 8px;
     row-gap: 8px;
+    /*margin-top: 100px;*/
 }
 
 .menu-page #menu-list .menu-item {

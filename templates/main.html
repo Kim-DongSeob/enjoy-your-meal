@@ -1,43 +1,47 @@
 {% extends 'index.html' %}
 {% block content %}
 <div class="wrap">
+    <div class="banner">
+        <img src="/static/img/food.jpg"/>
+        <div class="wrapper">
+            <p class="text title">"서울의 모든 맛집"</p>
+            <p class="text desc">서울의 모든 맛집은 여기에!</p>
+        </div>
+    </div>
     <div class="my-4 px-4">
-        <h5>-Random 추천</h5>
-        <div class="card-group">
-            <div class="card">
-                <img class="card-img-top" src="../static/img/흑당이.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <a href="#" class="card-title"><h6>가게명</h6></a>
-                </div>
+        <div class="content-header">
+            <h5 class="title">랜덤 추천</h5>
+            <div class="desc">맛집 목록을 랜덤하게 추천드려요!</div>
+        </div>
+        <div class="horizontal-list custom-list">
+            <button class="arrow-btn left random" onclick="handleClickArrowBtn('prev', 'first')">
+                <img src="/static/img/icon/caret-left-fill.svg"/>
+            </button>
+            <div id="main-random-list" class="list-wrapper">
+                <!--좋아요 높은 순 리스트-->
             </div>
-            <div class="card">
-                <img class="card-img-top" src="../static/img/흑당이.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <a href="#" class="card-title"><h6>가게명</h6></a>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card-img-top" src="../static/img/흑당이.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <a href="#" class="card-title"><h6>가게명</h6></a>
-                </div>
-            </div>
+            <button class="arrow-btn right random" onclick="handleClickArrowBtn('next', 'first')">
+                <img src="/static/img/icon/caret-right-fill.svg"/>
+            </button>
         </div>
     </div>
 
     <div class="divider"></div>
 
     <div class="my-4 px-4">
-        <h5>-좋아요 순위</h5>
+        <div class="content-header">
+            <h5 class="title">Best 12</h5>
+            <div class="desc">'좋아요'가 가장 많은 Best 12 입니다!</div>
+        </div>
         <div class="horizontal-list custom-list">
-            <button class="arrow-btn left" onclick="handleClickArrowBtn('prev')">
-                <img src="/static/img/icon/caret-left-fill.svg" />
+            <button class="arrow-btn left like" onclick="handleClickArrowBtn('prev', 'second')">
+                <img src="/static/img/icon/caret-left-fill.svg"/>
             </button>
-            <div id="card-group" class="list-wrapper">
-                    <!--좋아요 높은 순 리스트-->
+            <div id="main-like-list" class="list-wrapper">
+                <!--좋아요 높은 순 리스트-->
             </div>
-            <button class="arrow-btn right" onclick="handleClickArrowBtn('next')">
-                <img src="/static/img/icon/caret-right-fill.svg" />
+            <button class="arrow-btn right like" onclick="handleClickArrowBtn('next', 'second')">
+                <img src="/static/img/icon/caret-right-fill.svg"/>
             </button>
         </div>
     </div>

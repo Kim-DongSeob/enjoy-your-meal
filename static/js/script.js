@@ -76,6 +76,8 @@ $(document).ready(function () {
     getProfileImage();
     getLikeList();
     sortLikeList();
+    randomRecommend();
+    animationBanner();
 })
 
 function getProfileImage() {
@@ -255,6 +257,8 @@ function handleClickLike(name) {
 
 // (공통)좋아요 클릭 함수 구현 ---end
 
+
+// 내가 좋아요한 맛집 리스트 ---start
 function getLikeList() {
     $.ajax({
         type: "GET",
@@ -285,6 +289,8 @@ function getLikeList() {
         }
     })
 }
+
+// 내가 좋아요한 맛집 리스트 ---end
 
 // main.html 좋아요 순위 목록 구현 ---start
 
@@ -341,7 +347,7 @@ function sortLikeList() {
                                     </div>
                                  </div>`
                 }
-                $("#card-group").append(temp_html)
+                $("#main-like-list").append(temp_html)
             }
         }
     })
@@ -350,34 +356,132 @@ function sortLikeList() {
 // main.html 좋아요 순위 목록 구현 ---end
 
 
+// main.html 랜덤 추천 목록 구현 ---start
+function randomRecommend() {
+    $.ajax({
+        type: "GET",
+        url: "/recommend/random",
+        data: {},
+        success: function (response) {
+            const likeList = response['result'];
+            const userLikeList = response['user_like_list'];
+
+            for (let i = 0; i < 12; i++) {
+                const name = likeList[i]['name']
+                const address = likeList[i]['address']
+                const rating = likeList[i]['rating']
+                const likeCount = likeList[i]['like']
+                const imgsrc = likeList[i]['imgsrc']
+
+                let temp_html = '';
+
+                if (userLikeList.includes(name)) {
+                    temp_html = `<div class="item">
+                                    <img class="card-img-top" src="${imgsrc}" alt="Card image cap">
+                                    <div class="item-wrapper">
+                                        <div class="title">${name}</div>
+                                        <div class="address">${address}</div>
+                                        <div class="address">평점: ${rating}</div>
+                                        <div class="like-btn">
+                                            <div class="like-count">${likeCount}</div>
+                                            <div onclick="handleClickLike('${name}')" class="click">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>`
+                } else {
+                    temp_html = `<div class="item">
+                                    <img class="card-img-top" src="${imgsrc}" alt="Card image cap">
+                                    <div class="item-wrapper">
+                                        <div class="title">${name}</div>
+                                        <div class="address">${address}</div>
+                                        <div class="address">평점: ${rating}</div>
+                                        <div class="like-btn">
+                                            <div class="like-count">${likeCount}</div>
+                                            <div onclick="handleClickLike('${name}')" class="click">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart" viewBox="0 0 16 16">
+                                                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                 </div>`
+                }
+                $("#main-random-list").append(temp_html)
+            }
+        }
+    })
+}
+
+// main.html 랜덤 추천 목록 구현 ---end
+
+
 // 맛집 목록 slider 구현---start
-let num = 0;
+let firstNum = 0;
+let secondNum = 0;
 
-function handleClickArrowBtn(direction) {
-    const container = document.querySelector('.list-wrapper');
-    const next = document.querySelector('.arrow-btn.right');
-    const prev = document.querySelector('.arrow-btn.left');
-
-    if (direction === 'next' && num < 3) {
-        num++;
-        container.style.transform = `translateX(-${num}00%)`;
-        container.style.transition = `all 1s ease`;
+function handleClickArrowBtn(direction, order) {
+    if (order === 'first') {
+        const container = document.querySelector('#main-random-list');
+        const next = document.querySelector('.arrow-btn.right.random');
+        const prev = document.querySelector('.arrow-btn.left.random');
+        if (direction === 'next' && firstNum < 3) {
+            firstNum++;
+            container.style.transform = `translateX(-${firstNum}00%)`;
+            container.style.transition = `all .5s ease`;
+        }
+        if (direction === 'prev' && firstNum > 0) {
+            firstNum--;
+            container.style.transform = `translateX(-${firstNum}00%)`;
+            container.style.transition = `all .5s ease`;
+        }
+        if (firstNum === 3) {
+            next.style.opacity = `0`;
+        } else if (firstNum === 0) {
+            prev.style.opacity = `0`;
+        } else {
+            next.style.opacity = `1`;
+            prev.style.opacity = `1`;
+        }
     }
-    if (direction === 'prev' && num > 0) {
-        num--;
-        container.style.transform = `translateX(-${num}00%)`;
-        container.style.transition = `all 1s ease`;
-    }
-    console.log(num)
-    if (num === 3) {
-        next.style.opacity = `0`;
-    } else if (num === 0) {
-        prev.style.opacity = `0`;
-    } else {
-        next.style.opacity = `1`;
-        prev.style.opacity = `1`;
+    if (order === 'second') {
+        const container = document.querySelector('#main-like-list');
+        const next = document.querySelector('.arrow-btn.right.like');
+        const prev = document.querySelector('.arrow-btn.left.like');
+        if (direction === 'next' && secondNum < 3) {
+            secondNum++;
+            container.style.transform = `translateX(-${secondNum}00%)`;
+            container.style.transition = `all .5s ease`;
+        }
+        if (direction === 'prev' && secondNum > 0) {
+            secondNum--;
+            container.style.transform = `translateX(-${secondNum}00%)`;
+            container.style.transition = `all .5s ease`;
+        }
+        if (secondNum === 3) {
+            next.style.opacity = `0`;
+        } else if (secondNum === 0) {
+            prev.style.opacity = `0`;
+        } else {
+            next.style.opacity = `1`;
+            prev.style.opacity = `1`;
+        }
     }
 }
 
 // 맛집 목록 slider 구현---end
 
+
+function animationBanner() {
+    const bannerTitle = document.querySelector('.banner .wrapper .title');
+    const bannerDesc = document.querySelector('.banner .wrapper .desc');
+
+    bannerTitle.style.transform = `translateX(0)`;
+    bannerTitle.style.opacity = `1`;
+
+    bannerDesc.style.opacity = `1`;
+}

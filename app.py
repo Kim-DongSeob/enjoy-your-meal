@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 from datetime import timedelta
+import random
 
 # 카카오 api key 가져오는 용도---
 from dotenv import load_dotenv
@@ -226,6 +227,8 @@ def get_like():
             shops.append(shop)
 
     return jsonify({'result': shops})
+
+
 # 내가 좋아요 한 목록---end
 
 # 좋아요 클릭 ---start
@@ -266,7 +269,25 @@ def sort_like_list():
 
     return jsonify({'result': like_list, 'user_like_list': user_like_list})
 
+
 # 좋아요 순위별 정렬 ---end
+
+
+# 맛집 랜덤 추천 ---start
+@app.route("/recommend/random", methods=["GET"])
+def shuffle_list():
+    random_list = list(db.shops.find({}, {'_id': False}))
+    random.shuffle(random_list)
+
+    user_like_list = ''  # 로그인 안했을 때는 여기에다가 유저가 좋아하는 목록을 담아 return 해줘야함
+    if 'userid' in session:
+        user = db.users.find_one({'userid': session['userid']}, {'_id': False})
+        user_like_list = user['like-list']
+
+    return jsonify({'result': random_list, 'user_like_list': user_like_list})
+
+
+# 맛집 랜덤 추천 ---end
 
 
 if __name__ == '__main__':
