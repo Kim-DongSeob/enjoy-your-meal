@@ -471,6 +471,10 @@ button:focus, button:active {
     margin-top: 16px;
     align-items: center;
 }
+.menu-page #menu-list .menu-item .item-wrapper .like-btn img {
+    width: 25px;
+    height: 25px;
+}
 
 .menu-page #menu-list .menu-item .item-wrapper .like-btn .like-count {
     margin-right: 10px;
@@ -592,4 +596,8 @@ button:focus, button:active {
     margin-right: 10px;
     color: #e91550;
     font-size: 14px;
+}
+.horizontal-list .item .item-wrapper .like-btn img {
+    width: 25px;
+    height: 25px;
 }
