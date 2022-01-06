@@ -368,12 +368,14 @@ button:focus, button:active {
 .menu-page #menu-list .menu-item .item-wrapper {
     padding: 16px;
 }
+
 .menu-page #menu-list .menu-item .item-wrapper .like-btn {
     display: flex;
     justify-content: flex-end;
     margin-top: 16px;
     align-items: center;
 }
+
 .menu-page #menu-list .menu-item .item-wrapper .like-btn .like-count {
     margin-right: 10px;
     color: #e91550;
@@ -407,4 +409,72 @@ button:focus, button:active {
 #like-list .like-item .desc-wrapper .address {
     font-size: 14px;
     color: var(--custom-secondary);
+}
+
+.horizontal-list {
+    display: flex;
+    position: relative;
+}
+
+.horizontal-list .item {
+    border: 1px solid var(--gray400);
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 200px;
+}
+.horizontal-list .item .title {
+    font-size: 18px;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: all 0.2s ease;
+}
+.horizontal-list .item .address {
+    font-size: 14px;
+    color: var(--custom-secondary);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.horizontal-list .item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.horizontal-list .item .item-wrapper {
+    padding: 16px;
+}
+.horizontal-list .list-wrapper {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    column-gap: 8px;
+}
+.horizontal-list .arrow-btn {
+    background: none;
+    border: none;
+    position: absolute;
+    font-size: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.horizontal-list .arrow-btn.left {
+    left: 0;
+}
+.horizontal-list .arrow-btn.right {
+    right: 0;
+}
+.horizontal-list .item .item-wrapper .like-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    align-items: center;
+}
+
+.horizontal-list .item .item-wrapper .like-btn .like-count {
+    margin-right: 10px;
+    color: #e91550;
+    font-size: 14px;
 }

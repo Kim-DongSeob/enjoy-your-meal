@@ -75,6 +75,7 @@ function handleChangeProfileImage() {
 $(document).ready(function () {
     getProfileImage();
     getLikeList();
+    sortLikeList();
 })
 
 function getProfileImage() {
@@ -178,7 +179,6 @@ function search() {
         success: function (response) {
             const result = response["result"];
             const likeList = response['like_list']
-            console.log('리스트:', likeList)
 
             for (let i = 0; i < result.length; i++) {
                 const title = result[i]["name"];
@@ -186,9 +186,11 @@ function search() {
                 const likeCount = result[i]["like"];
                 const rating = result[i]["rating"];
                 const imgsrc = result[i]["imgsrc"];
-                // let link = result[i]["link"];
+
+                let temp_html = '';
+
                 if (likeList.includes(title)) {
-                    let temp_html = `<div id="menu-item" class="menu-item">
+                    temp_html = `<div id="menu-item" class="menu-item">
                                     <img src="${imgsrc}"/>
                                     <div class="item-wrapper">
                                         <div class="title">${title}</div>
@@ -206,9 +208,8 @@ function search() {
                                     </div>
                                 </div>`
 
-                    $("#menu-list").append(temp_html)
                 } else {
-                    let temp_html = `<div id="menu-item" class="menu-item">
+                    temp_html = `<div id="menu-item" class="menu-item">
                                     <img src="${imgsrc}"/>
                                     <div class="item-wrapper">
                                         <div class="title">${title}</div>
@@ -216,7 +217,7 @@ function search() {
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
-                                            <div onclick="handleClickLike('${title}')">
+                                            <div onclick="handleClickLike('${title}')" class="click">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart" viewBox="0 0 16 16">
                                                   <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
                                                 </svg>
@@ -225,8 +226,8 @@ function search() {
                                     </div>
                                 </div>`
 
-                    $("#menu-list").append(temp_html)
                 }
+                $("#menu-list").append(temp_html)
             }
         }
     })
@@ -238,10 +239,15 @@ function handleClickLike(name) {
         url: "/like",
         data: {name_give: name},
         success: function (response) {
-            alert(response['msg'])
+            // alert(response['msg'])
+            window.location.reload()
+
+            if (response['error']) {
+                alert(response['error'])
+                location.href = 'login'
+            }
         }
     })
-    return false
 }
 
 function getLikeList() {
@@ -270,6 +276,65 @@ function getLikeList() {
                                 </div>`
 
                 $("#like-list").append(temp_html)
+            }
+        }
+    })
+}
+
+function sortLikeList() {
+    $.ajax({
+        type: "GET",
+        url: "/like/sort",
+        data: {},
+        success: function (response) {
+            const likeList = response['result'];
+            const userLikeList = response['user_like_list'];
+
+            for (let i = 0; i < 10; i++) {
+                const name = likeList[i]['name']
+                const address = likeList[i]['address']
+                const rating = likeList[i]['rating']
+                const likeCount = likeList[i]['like']
+                const imgsrc = likeList[i]['imgsrc']
+
+                let temp_html = '';
+
+                if (userLikeList.includes(name)) {
+                    temp_html = `<div class="item">
+                                    <img class="card-img-top" src="${imgsrc}" alt="Card image cap">
+                                    <div class="item-wrapper">
+                                        <div class="title">${name}</div>
+                                        <div class="address">${address}</div>
+                                        <div class="address">평점: ${rating}</div>
+                                        <div class="like-btn">
+                                            <div class="like-count">${likeCount}</div>
+                                            <div onclick="handleClickLike('${name}')" class="click">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>`
+                } else {
+                    temp_html = `<div class="item">
+                                    <img class="card-img-top" src="${imgsrc}" alt="Card image cap">
+                                    <div class="item-wrapper">
+                                        <div class="title">${name}</div>
+                                        <div class="address">${address}</div>
+                                        <div class="address">평점: ${rating}</div>
+                                        <div class="like-btn">
+                                            <div class="like-count">${likeCount}</div>
+                                            <div onclick="handleClickLike('${name}')" class="click">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart" viewBox="0 0 16 16">
+                                                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>`
+                }
+                $("#card-group").append(temp_html)
             }
         }
     })

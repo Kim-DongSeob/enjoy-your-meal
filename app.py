@@ -69,7 +69,7 @@ def route_signup():
 
 @app.route("/login")
 def route_login():
-    print('login session', session)
+    # print('login session', session)
     return render_template('login.html')
 
 
@@ -95,7 +95,7 @@ def save_user():
     }
     db.users.insert_one(doc)
 
-    print(doc)
+    # print(doc)
 
     return jsonify({"msg": "가입완료"})
 
@@ -120,7 +120,7 @@ def login():
     user_info = db.users.find_one({'userid': userid_receive, 'pw': pw_receive})
     print(user_info)
 
-    if user_info == None:
+    if user_info is None:
         return print('wrong')
     else:
         session['logFlag'] = True
@@ -151,7 +151,7 @@ def upload_file():
     os.makedirs(image_path, exist_ok=True)  # 폴더 생성
 
     file_list = os.listdir(image_path)
-    print(file_list)
+    # print(file_list)
     # 이미지 업로드 전에 해당 폴더안 파일 전부 삭제 (이유는 한 유저당 프로필 이미지는 한개만 수용)
     if os.path.exists(image_path):
         for file in os.scandir(image_path):
@@ -160,7 +160,7 @@ def upload_file():
     file = request.files['file']
     # filename = secure_filename(file.filename)  # 파일이름 암호화
     filename = file.filename  # 바로 위 secure_filename을 걷어낸 이유는 secure_filename은 한글을 지원하지 않는다. 그리고 프로필이미지가 안전할 필요가 있는가?
-    print(filename)
+    # print(filename)
 
     file.save(os.path.join(image_path, filename))  # 파일 저장
 
@@ -170,16 +170,18 @@ def upload_file():
 # 프로필 이미지 get
 @app.route('/profile', methods=['GET'])
 def get_profile():
-    image_path = 'static/uploads/' + str(session['userid'])  # 유저아이디에 따른 이미지 폴더 경로
-    file_list = os.listdir(image_path)
+    if 'userid' in session:
+        image_path = 'static/uploads/' + str(session['userid'])  # 유저아이디에 따른 이미지 폴더 경로
+        file_list = os.listdir(image_path)
 
-    doc = {
-        'image_path': image_path,
-        'image_file': image_path + "/" + file_list[0],
-    }
-    print(doc)
+        doc = {
+            'image_path': image_path,
+            'image_file': image_path + "/" + file_list[0],
+        }
+        # print(doc)
 
-    return jsonify({"result": doc})
+        return jsonify({"result": doc})
+    return jsonify({"result": '이미지가 없어염'})
 
 
 # 프로필 이미지 ---end
@@ -190,8 +192,10 @@ def search():
     keyword_receive = request.form["keyword_give"]
     select_value_receive = request.form["select_value_give"]
 
-    user = db.users.find_one({'userid': session['userid']})
-    user_like_list = user['like-list']
+    user_like_list = ''  # 로그인 안했을 때는 여기에다가 유저가 좋아하는 목록을 담아 return 해줘야함
+    if 'userid' in session:
+        user = db.users.find_one({'userid': session['userid']})
+        user_like_list = user['like-list']
 
     # regex는 db에서 특정 문자열이 포함 여부 확인
     if select_value_receive == '전체':
@@ -201,9 +205,8 @@ def search():
         search_list = list(db.shops.find({'address': {"$regex": select_value_receive}}, {'_id': False}))
     else:
         search_list = list(
-            db.shops.find({'address': {"$regex": select_value_receive}, 'name': {"$regex": keyword_receive}}, {'_id': False}))
-
-    print(search_list)
+            db.shops.find({'address': {"$regex": select_value_receive}, 'name': {"$regex": keyword_receive}},
+                          {'_id': False}))
 
     return jsonify({'result': search_list, 'like_list': user_like_list})
 
@@ -213,45 +216,53 @@ def search():
 # 좋아요 ---start
 @app.route("/like", methods=["GET"])
 def get_like():
-    user = db.users.find_one({'userid': session['userid']})
-    user_like_list = user['like-list']
-
     shops = list()
-    for shop_item in user_like_list:
-        shop = db.shops.find_one({'name': shop_item}, {'_id': False})
-        shops.append(shop)
+    if 'userid' in session:
+        user = db.users.find_one({'userid': session['userid']})
+        user_like_list = user['like-list']
 
-    print('shop:', shops)
+        for shop_item in user_like_list:
+            shop = db.shops.find_one({'name': shop_item}, {'_id': False})
+            shops.append(shop)
+
+        # print('shop:', shops)
     return jsonify({'result': shops})
 
 
 @app.route("/like", methods=["POST"])
 def post_like():
     name_receive = request.form['name_give']
-    # shop_id_receive = request.form['shop_id_give']
-    # like_list: list(db.shops.find({},))
-    # count_like: db.shops.find_one({'name'})
 
-    user = db.users.find_one({'userid': session['userid']})
-    user_like_list = user['like-list']
-
-    # db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
-    # return jsonify({'msg': '좋아용!'})
-
-    if name_receive in user_like_list:
-        db.users.update_one({'userid': session['userid']}, {'$pull': {'like-list': name_receive}})
-        db.shops.update_one({'name': name_receive}, {'$inc': {'like': -1}})
-        return jsonify({'msg': '좋아요 취소'})
-    elif name_receive not in user_like_list:
-        db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
-        db.shops.update_one({'name': name_receive}, {'$inc': {'like': 1}})
-        return jsonify({'msg': '좋아요!'})
+    if 'userid' in session:
+        user = db.users.find_one({'userid': session['userid']})
+        user_like_list = user['like-list']
+        if name_receive in user_like_list:
+            db.users.update_one({'userid': session['userid']}, {'$pull': {'like-list': name_receive}})
+            db.shops.update_one({'name': name_receive}, {'$inc': {'like': -1}})
+            return jsonify({'msg': '좋아요 취소'})
+        elif name_receive not in user_like_list:
+            db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
+            db.shops.update_one({'name': name_receive}, {'$inc': {'like': 1}})
+            return jsonify({'msg': '좋아요!'})
+        else:
+            db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
+            return jsonify({'msg': '좋아요!'})
     else:
-        db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
-        return jsonify({'msg': '좋아요!'})
+        return jsonify({'error': '로그인이 필요합니다. 로그인 페이지로 이동합니다.'})
 
 
 # 좋아요 ---end
+
+@app.route("/like/sort", methods=["GET"])
+def sort_like_list():
+    like_list = list(db.shops.find({}, {'_id': False}).sort('like', -1))
+
+    user_like_list = ''  # 로그인 안했을 때는 여기에다가 유저가 좋아하는 목록을 담아 return 해줘야함
+    if 'userid' in session:
+        user = db.users.find_one({'userid': session['userid']}, {'_id': False})
+        user_like_list = user['like-list']
+
+    return jsonify({'result': like_list, 'user_like_list': user_like_list})
 
 
 if __name__ == '__main__':
