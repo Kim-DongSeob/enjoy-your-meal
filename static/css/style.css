@@ -1,6 +1,6 @@
 * {
     /*font-family: 'Dongle', sans-serif;*/
-    font-family: sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .wrap {
@@ -34,6 +34,31 @@ a:hover {
     --table-header: #EEF1F7;
     --global-bg: #F6F7FB;
     --black: #333333;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    font-weight: 400;
+    src: url(/static/fonts/NotoSansKR-Regular.otf);
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    font-weight: 500;
+    src: url(/static/fonts/NotoSansKR-Medium.otf);
+}
+
+
+@font-face {
+    font-family: 'Noto Sans';
+    font-weight: 300;
+    src: url(/static/fonts/NotoSansKR-Light.otf);
+}
+
+
+@font-face {
+    font-family: 'Noto Sans';
+    font-weight: 700;
+    src: url(/static/fonts/NotoSansKR-Bold.otf);
 }
 
 html {
@@ -69,17 +94,24 @@ button:focus, button:active {
 .click {
     cursor: pointer;
 }
+.content-wrapper {
+    margin: 30px 0;
+}
 .content-header {
     display: flex;
-
+    margin-bottom: 16px;
 }
 .content-header .title {
     /*display: inline-block;*/
     /*border-bottom: 1px solid var(--custom-primary);*/
+    margin: 0;
+    font-weight: 500;
 }
 .content-header .desc {
     font-size: 14px;
     color: var(--custom-secondary);
+    display: flex;
+    align-items: center;
 }
 .content-header .desc:before {
     content: '';
@@ -186,9 +218,9 @@ button:focus, button:active {
     align-items: center;
 }
 
-.main-profile-wrapper * {
-    font-family: sans-serif;
-}
+/*.main-profile-wrapper * {*/
+/*    font-family: 'Noto Sans', sans-serif;*/
+/*}*/
 
 .main-profile-wrapper .account {
     display: flex;
@@ -203,9 +235,9 @@ button:focus, button:active {
 }
 
 /* 회원가입, 로그인 page */
-.sign-up * {
-    font-family: sans-serif;
-}
+/*.sign-up * {*/
+/*    font-family: sans-serif;*/
+/*}*/
 
 .sign-up {
     display: flex;
@@ -256,9 +288,9 @@ button:focus, button:active {
     display: flex;
 }
 
-.profile-info * {
-    font-family: sans-serif;
-}
+/*.profile-info * {*/
+/*    font-family: sans-serif;*/
+/*}*/
 
 .profile-detail {
     display: flex;
@@ -369,9 +401,9 @@ button:focus, button:active {
 }
 
 /* menu.html */
-.menu-page * {
-    font-family: sans-serif;
-}
+/*.menu-page * {*/
+/*    font-family: sans-serif;*/
+/*}*/
 
 .menu-page .wrapper {
     display: flex;
