@@ -184,6 +184,7 @@ function search() {
                 const title = result[i]["name"];
                 const address = result[i]["address"];
                 const likeCount = result[i]["like"];
+                const rating = result[i]["rating"];
                 const imgsrc = result[i]["imgsrc"];
                 // let link = result[i]["link"];
                 if (likeList.includes(title)) {
@@ -192,6 +193,7 @@ function search() {
                                     <div class="item-wrapper">
                                         <div class="title">${title}</div>
                                         <div class="address">${address}</div>
+                                        <div class="address">평점 : ${rating}</div>
                                             
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
@@ -211,6 +213,7 @@ function search() {
                                     <div class="item-wrapper">
                                         <div class="title">${title}</div>
                                         <div class="address">${address}</div>
+                                        <div class="address">평점 : ${rating}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
                                             <div onclick="handleClickLike('${title}')">
@@ -253,6 +256,7 @@ function getLikeList() {
             for (let i = 0; i < shops.length; i++) {
                 const title = shops[i]['name'];
                 const address = shops[i]['address'];
+                const rating = shops[i]['rating'];
                 const imgsrc = shops[i]['imgsrc'];
                 // const link = shops[i]['link'];
 
@@ -261,6 +265,7 @@ function getLikeList() {
                                     <div class="desc-wrapper">
                                         <div class="title click">${title}</div>
                                         <div class="address">${address}</div>
+                                        <div class="address">평점 : ${rating}</div>
                                     </div>
                                 </div>`
 
