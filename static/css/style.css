@@ -35,6 +35,7 @@ a:hover {
     --global-bg: #F6F7FB;
     --black: #333333;
 }
+
 @font-face {
     font-family: 'Noto Sans';
     font-weight: 400;
@@ -94,25 +95,30 @@ button:focus, button:active {
 .click {
     cursor: pointer;
 }
+
 .content-wrapper {
     margin: 30px 0;
 }
+
 .content-header {
     display: flex;
     margin-bottom: 16px;
 }
+
 .content-header .title {
     /*display: inline-block;*/
     /*border-bottom: 1px solid var(--custom-primary);*/
     margin: 0;
     font-weight: 500;
 }
+
 .content-header .desc {
     font-size: 14px;
     color: var(--custom-secondary);
     display: flex;
     align-items: center;
 }
+
 .content-header .desc:before {
     content: '';
     display: inline-block;
@@ -350,39 +356,32 @@ button:focus, button:active {
     object-fit: cover;
 }
 
+.profile-info .img-container {
+    position: relative;
+}
 
 .hover-element {
-    background: rgba(0, 0, 0, 0);
-    width: 150px;
-    height: 150px;
     position: absolute;
-    top: 0;
-    left: 0;
-    transition: all 0.5s ease;
+    bottom: 5px;
+    right: 5px;
+    background: var(--gray400);
+    border-radius: 10em;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.hover-element div {
-    color: white;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
+.hover-element:hover {
+    background: var(--gray600);
 }
 
-.hover-element:hover, .hover-element:focus {
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 1;
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    top: 0;
-    left: 0;
+.hover-element img {
+    width: 20px;
+    height: 20px;
 }
-
 
 .divider {
     width: 100%;
@@ -471,6 +470,7 @@ button:focus, button:active {
     margin-top: 16px;
     align-items: center;
 }
+
 .menu-page #menu-list .menu-item .item-wrapper .like-btn img {
     width: 25px;
     height: 25px;
@@ -597,6 +597,7 @@ button:focus, button:active {
     color: #e91550;
     font-size: 14px;
 }
+
 .horizontal-list .item .item-wrapper .like-btn img {
     width: 25px;
     height: 25px;
