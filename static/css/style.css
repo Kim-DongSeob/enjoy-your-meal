@@ -372,6 +372,12 @@ button:focus, button:active {
     display: flex;
     justify-content: flex-end;
     margin-top: 16px;
+    align-items: center;
+}
+.menu-page #menu-list .menu-item .item-wrapper .like-btn .like-count {
+    margin-right: 10px;
+    color: #e91550;
+    font-size: 14px;
 }
 
 #like-list .like-item {

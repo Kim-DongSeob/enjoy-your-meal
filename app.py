@@ -190,6 +190,9 @@ def search():
     keyword_receive = request.form["keyword_give"]
     select_value_receive = request.form["select_value_give"]
 
+    user = db.users.find_one({'userid': session['userid']})
+    user_like_list = user['like-list']
+
     # regex는 db에서 특정 문자열이 포함 여부 확인
     if select_value_receive == '전체':
         search_list = list(db.shops
@@ -202,7 +205,7 @@ def search():
 
     print(search_list)
 
-    return jsonify({'result': search_list})
+    return jsonify({'result': search_list, 'like_list': user_like_list})
 
 
 # 메뉴별 맛집 리스트 ---end

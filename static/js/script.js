@@ -176,7 +176,9 @@ function search() {
         url: "/search",
         data: {select_value_give: selectValue, keyword_give: keywordValue},
         success: function (response) {
-            let result = response["result"]
+            const result = response["result"];
+            const likeList = response['like_list']
+            console.log('리스트:', likeList)
 
             for (let i = 0; i < result.length; i++) {
                 const title = result[i]["name"];
@@ -184,24 +186,48 @@ function search() {
                 const likeCount = result[i]["like"];
                 const imgsrc = result[i]["imgsrc"];
                 // let link = result[i]["link"];
+                if (likeList.includes(title)) {
+                    let temp_html = `<div id="menu-item" class="menu-item">
+                                    <img src="${imgsrc}"/>
+                                    <div class="item-wrapper">
+                                        <div class="title">${title}</div>
+                                        <div class="address">${address}</div>
+                                            
+                                        <div class="like-btn">
+                                            <div class="like-count">${likeCount}</div>
+                                            <div onclick="handleClickLike('${title}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
 
-                let temp_html = `<div id="menu-item" class="menu-item">
+                    $("#menu-list").append(temp_html)
+                } else {
+                    let temp_html = `<div id="menu-item" class="menu-item">
                                     <img src="${imgsrc}"/>
                                     <div class="item-wrapper">
                                         <div class="title">${title}</div>
                                         <div class="address">${address}</div>
                                         <div class="like-btn">
-                                            <button class="btn btn-primary" onclick="handleClickLike('${title}')">좋아요 ${likeCount}</button>
+                                            <div class="like-count">${likeCount}</div>
+                                            <div onclick="handleClickLike('${title}')">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#e91550" class="bi bi-heart" viewBox="0 0 16 16">
+                                                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>`
 
-                $("#menu-list").append(temp_html)
+                    $("#menu-list").append(temp_html)
+                }
             }
         }
     })
 }
-
 
 function handleClickLike(name) {
     $.ajax({
