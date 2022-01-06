@@ -213,7 +213,7 @@ def search():
 
 # 메뉴별 맛집 리스트 ---end
 
-# 좋아요 ---start
+# 내가 좋아요 한 목록---start
 @app.route("/like", methods=["GET"])
 def get_like():
     shops = list()
@@ -225,10 +225,10 @@ def get_like():
             shop = db.shops.find_one({'name': shop_item}, {'_id': False})
             shops.append(shop)
 
-        # print('shop:', shops)
     return jsonify({'result': shops})
+# 내가 좋아요 한 목록---end
 
-
+# 좋아요 클릭 ---start
 @app.route("/like", methods=["POST"])
 def post_like():
     name_receive = request.form['name_give']
@@ -251,8 +251,10 @@ def post_like():
         return jsonify({'error': '로그인이 필요합니다. 로그인 페이지로 이동합니다.'})
 
 
-# 좋아요 ---end
+# 좋아요 클릭---end
 
+
+# 좋아요 순위별 정렬 ---start
 @app.route("/like/sort", methods=["GET"])
 def sort_like_list():
     like_list = list(db.shops.find({}, {'_id': False}).sort('like', -1))
@@ -263,6 +265,8 @@ def sort_like_list():
         user_like_list = user['like-list']
 
     return jsonify({'result': like_list, 'user_like_list': user_like_list})
+
+# 좋아요 순위별 정렬 ---end
 
 
 if __name__ == '__main__':
