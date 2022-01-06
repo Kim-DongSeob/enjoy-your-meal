@@ -233,6 +233,9 @@ function search() {
     })
 }
 
+// menu.html ---end
+
+// (공통)좋아요 클릭 함수 구현 ---start
 function handleClickLike(name) {
     $.ajax({
         type: "POST",
@@ -249,6 +252,8 @@ function handleClickLike(name) {
         }
     })
 }
+
+// (공통)좋아요 클릭 함수 구현 ---end
 
 function getLikeList() {
     $.ajax({
@@ -281,6 +286,8 @@ function getLikeList() {
     })
 }
 
+// main.html 좋아요 순위 목록 구현 ---start
+
 function sortLikeList() {
     $.ajax({
         type: "GET",
@@ -290,7 +297,7 @@ function sortLikeList() {
             const likeList = response['result'];
             const userLikeList = response['user_like_list'];
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 12; i++) {
                 const name = likeList[i]['name']
                 const address = likeList[i]['address']
                 const rating = likeList[i]['rating']
@@ -340,4 +347,37 @@ function sortLikeList() {
     })
 }
 
-// menu.html ---end
+// main.html 좋아요 순위 목록 구현 ---end
+
+
+// 맛집 목록 slider 구현---start
+let num = 0;
+
+function handleClickArrowBtn(direction) {
+    const container = document.querySelector('.list-wrapper');
+    const next = document.querySelector('.arrow-btn.right');
+    const prev = document.querySelector('.arrow-btn.left');
+
+    if (direction === 'next' && num < 3) {
+        num++;
+        container.style.transform = `translateX(-${num}00%)`;
+        container.style.transition = `all 1s ease`;
+    }
+    if (direction === 'prev' && num > 0) {
+        num--;
+        container.style.transform = `translateX(-${num}00%)`;
+        container.style.transition = `all 1s ease`;
+    }
+    console.log(num)
+    if (num === 3) {
+        next.style.opacity = `0`;
+    } else if (num === 0) {
+        prev.style.opacity = `0`;
+    } else {
+        next.style.opacity = `1`;
+        prev.style.opacity = `1`;
+    }
+}
+
+// 맛집 목록 slider 구현---end
+

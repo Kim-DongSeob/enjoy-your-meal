@@ -30,11 +30,15 @@
     <div class="my-4 px-4">
         <h5>-좋아요 순위</h5>
         <div class="horizontal-list custom-list">
-            <button class="arrow-btn left"><</button>
+            <button class="arrow-btn left" onclick="handleClickArrowBtn('prev')">
+                <img src="/static/img/icon/caret-left-fill.svg" />
+            </button>
             <div id="card-group" class="list-wrapper">
-                <!--좋아요 높은 순 리스트-->
+                    <!--좋아요 높은 순 리스트-->
             </div>
-            <button class="arrow-btn right">></button>
+            <button class="arrow-btn right" onclick="handleClickArrowBtn('next')">
+                <img src="/static/img/icon/caret-right-fill.svg" />
+            </button>
         </div>
     </div>
 </div>

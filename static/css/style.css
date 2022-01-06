@@ -414,14 +414,17 @@ button:focus, button:active {
 .horizontal-list {
     display: flex;
     position: relative;
+    overflow: hidden;
+    padding-left: 8px;
 }
 
 .horizontal-list .item {
     border: 1px solid var(--gray400);
     border-radius: 8px;
     overflow: hidden;
-    min-width: 200px;
+    min-width: calc(100% / 3 - 8px);
 }
+
 .horizontal-list .item .title {
     font-size: 18px;
     cursor: pointer;
@@ -430,6 +433,7 @@ button:focus, button:active {
     text-overflow: ellipsis;
     transition: all 0.2s ease;
 }
+
 .horizontal-list .item .address {
     font-size: 14px;
     color: var(--custom-secondary);
@@ -443,29 +447,44 @@ button:focus, button:active {
     height: 180px;
     object-fit: cover;
 }
+
 .horizontal-list .item .item-wrapper {
     padding: 16px;
 }
+
 .horizontal-list .list-wrapper {
     display: flex;
+    /*grid-template-columns: 1fr 1fr 1fr;*/
     width: 100%;
-    overflow: hidden;
     column-gap: 8px;
 }
+
 .horizontal-list .arrow-btn {
     background: none;
     border: none;
     position: absolute;
-    font-size: 70px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 9;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10em;
+    width: 30px;
+    height: 30px;
 }
+
+.horizontal-list .arrow-btn img {
+    fill: white;
+}
+
 .horizontal-list .arrow-btn.left {
     left: 0;
+    opacity: 0;
 }
+
 .horizontal-list .arrow-btn.right {
     right: 0;
 }
+
 .horizontal-list .item .item-wrapper .like-btn {
     display: flex;
     justify-content: flex-end;
