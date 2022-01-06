@@ -73,7 +73,8 @@ function handleChangeProfileImage() {
 
 
 $(document).ready(function () {
-    getProfileImage()
+    getProfileImage();
+    getLikeList();
 })
 
 function getProfileImage() {
@@ -175,24 +176,69 @@ function search() {
         url: "/search",
         data: {select_value_give: selectValue, keyword_give: keywordValue},
         success: function (response) {
-            console.log(response)
             let result = response["result"]
 
             for (let i = 0; i < result.length; i++) {
-                let title = result[i]["name"]
-                let gu = result[i]["gu"]
-                let address = result[i]["address"]
-                let link = result[i]["link"]
-                // let address = result[i]["address"]
-                // 각 요소 추가
+                const title = result[i]["name"];
+                const address = result[i]["address"];
+                const likeCount = result[i]["like"];
+                const imgsrc = result[i]["imgsrc"];
+                // let link = result[i]["link"];
 
-                let temp_html = `<div class="menu-item">
-                                    <div class="title" onclick="window.open('${link}')">${title}</div>
-                                    <div class="address">${address}</div>
-                                    <button class="btn btn-primary">좋아요</button>
+                let temp_html = `<div id="menu-item" class="menu-item">
+                                    <img src="${imgsrc}"/>
+                                    <div class="item-wrapper">
+                                        <div class="title">${title}</div>
+                                        <div class="address">${address}</div>
+                                        <div class="like-btn">
+                                            <button class="btn btn-primary" onclick="handleClickLike('${title}')">좋아요 ${likeCount}</button>
+                                        </div>
+                                    </div>
                                 </div>`
 
                 $("#menu-list").append(temp_html)
+            }
+        }
+    })
+}
+
+
+function handleClickLike(name) {
+    $.ajax({
+        type: "POST",
+        url: "/like",
+        data: {name_give: name},
+        success: function (response) {
+            alert(response['msg'])
+        }
+    })
+    return false
+}
+
+function getLikeList() {
+    $.ajax({
+        type: "GET",
+        url: "/like",
+        data: {},
+        success: function (response) {
+            const shops = response['result']
+            console.log(shops)
+
+            for (let i = 0; i < shops.length; i++) {
+                const title = shops[i]['name'];
+                const address = shops[i]['address'];
+                const imgsrc = shops[i]['imgsrc'];
+                // const link = shops[i]['link'];
+
+                let temp_html = ` <div class="like-item">
+                                    <img src="${imgsrc}" />
+                                    <div class="desc-wrapper">
+                                        <div class="title click">${title}</div>
+                                        <div class="address">${address}</div>
+                                    </div>
+                                </div>`
+
+                $("#like-list").append(temp_html)
             }
         }
     })

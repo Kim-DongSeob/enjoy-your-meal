@@ -1,3 +1,4 @@
+from bson import ObjectId
 from flask import Flask, render_template, jsonify, request, redirect, session
 
 app = Flask(__name__)
@@ -13,7 +14,7 @@ load_dotenv()
 CLIENT_ID = os.getenv("CLIENT_ID")
 
 app.secret_key = 'SecretKey'
-app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=10)  # 로그인 시간
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)  # 로그인 시간
 app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024  # 파일업로드 용량 제한 3mb
 # ----------------------------
 
@@ -21,6 +22,8 @@ app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024  # 파일업로드 용량 제
 client = MongoClient('localhost', 27017)
 db = client.toyproj
 
+
+# db.shops.update_one({'name': '연안식당 창동점'}, {'$set': {'like': 0}})
 
 # HTML 화면 보여주기
 @app.route('/')
@@ -88,6 +91,7 @@ def save_user():
         'name': name_receive,
         'userid': userid_receive,
         'pw': pw_receive,
+        'like-list': []
     }
     db.users.insert_one(doc)
 
@@ -191,9 +195,10 @@ def search():
         search_list = list(db.shops
                            .find({'name': {"$regex": keyword_receive}}, {'_id': False}))
     elif keyword_receive == '':
-        search_list = list(db.shops.find({'gu': select_value_receive}, {'_id': False}))
+        search_list = list(db.shops.find({'address': {"$regex": select_value_receive}}, {'_id': False}))
     else:
-        search_list = list(db.shops.find({'gu': select_value_receive, 'name': {"$regex": keyword_receive}}, {'_id': False}))
+        search_list = list(
+            db.shops.find({'address': {"$regex": select_value_receive}, 'name': {"$regex": keyword_receive}}, {'_id': False}))
 
     print(search_list)
 
@@ -202,6 +207,48 @@ def search():
 
 # 메뉴별 맛집 리스트 ---end
 
+# 좋아요 ---start
+@app.route("/like", methods=["GET"])
+def get_like():
+    user = db.users.find_one({'userid': session['userid']})
+    user_like_list = user['like-list']
+
+    shops = list()
+    for shop_item in user_like_list:
+        shop = db.shops.find_one({'name': shop_item}, {'_id': False})
+        shops.append(shop)
+
+    print('shop:', shops)
+    return jsonify({'result': shops})
+
+
+@app.route("/like", methods=["POST"])
+def post_like():
+    name_receive = request.form['name_give']
+    # shop_id_receive = request.form['shop_id_give']
+    # like_list: list(db.shops.find({},))
+    # count_like: db.shops.find_one({'name'})
+
+    user = db.users.find_one({'userid': session['userid']})
+    user_like_list = user['like-list']
+
+    # db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
+    # return jsonify({'msg': '좋아용!'})
+
+    if name_receive in user_like_list:
+        db.users.update_one({'userid': session['userid']}, {'$pull': {'like-list': name_receive}})
+        db.shops.update_one({'name': name_receive}, {'$inc': {'like': -1}})
+        return jsonify({'msg': '좋아요 취소'})
+    elif name_receive not in user_like_list:
+        db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
+        db.shops.update_one({'name': name_receive}, {'$inc': {'like': 1}})
+        return jsonify({'msg': '좋아요!'})
+    else:
+        db.users.update_one({'userid': session['userid']}, {'$push': {'like-list': name_receive}})
+        return jsonify({'msg': '좋아요!'})
+
+
+# 좋아요 ---end
 
 
 if __name__ == '__main__':

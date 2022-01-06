@@ -65,6 +65,7 @@ button:focus, button:active {
 .overflow-y-auto {
     overflow-y: overlay;
 }
+
 .click {
     cursor: pointer;
 }
@@ -77,6 +78,7 @@ button:focus, button:active {
     top: 0;
     z-index: 10;
 }
+
 .nav-top nav .navbar-brand {
     font-family: 'Dongle', sans-serif;
     font-size: 30px;
@@ -90,11 +92,13 @@ button:focus, button:active {
     left: 50%;
     z-index: 10;
 }
+
 .nav-bottom .wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     padding: 8px;
 }
+
 .nav-bottom .wrapper button {
     font-family: 'Dongle', sans-serif;
     line-height: 1;
@@ -253,6 +257,7 @@ button:focus, button:active {
     object-fit: cover;
 }
 
+
 .hover-element {
     background: rgba(0, 0, 0, 0);
     width: 150px;
@@ -330,13 +335,14 @@ button:focus, button:active {
 }
 
 .menu-page #menu-list .menu-item {
-    padding: 16px;
+    /*padding: 16px;*/
     border: 1px solid var(--gray400);
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .menu-page #menu-list .menu-item .title {
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -346,6 +352,53 @@ button:focus, button:active {
 }
 
 .menu-page #menu-list .menu-item .address {
+    font-size: 14px;
+    color: var(--custom-secondary);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.menu-page #menu-list .menu-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.menu-page #menu-list .menu-item .item-wrapper {
+    padding: 16px;
+}
+.menu-page #menu-list .menu-item .item-wrapper .like-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+#like-list .like-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--gray400);
+    border-radius: 8px;
+    margin: 16px 0;
+    height: 100px;
+    overflow: hidden;
+}
+
+#like-list .like-item img {
+    width: 200px;
+    height: 100%;
+    object-fit: cover;
+}
+
+#like-list .like-item .desc-wrapper {
+    margin-left: 20px;
+}
+
+#like-list .like-item .desc-wrapper .title {
+    font-size: 18px;
+}
+
+#like-list .like-item .desc-wrapper .address {
     font-size: 14px;
     color: var(--custom-secondary);
 }
