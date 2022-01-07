@@ -2,13 +2,13 @@
 {% block content %}
 <div class="px-4" style="margin: 30px 0">
     <div class="profile-info">
-        <div class="profile-img-wrapper">
-            <label for="file-input" class="hover-element">
-                <div>
-                    사진 변경
-                </div>
+        <div class="img-container">
+            <div class="profile-img-wrapper">
+                <img id="profile-img" class="profile-img" alt=""/>
+            </div>
+            <label for="file-input" class="hover-element click">
+                <img src="/static/img/icon/camera-fill.svg"/>
             </label>
-            <img id="profile-img" class="profile-img" alt=""/>
         </div>
 
         <!--경로 수정해야함 / 파일 업로드 코드(display none 상태임)-->

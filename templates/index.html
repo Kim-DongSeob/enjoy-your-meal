@@ -30,14 +30,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
 
+
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script type="text/javascript" src="../static/js/script.js"></script>
-    <title>사전스터디 14팀 토이프로젝트</title>
+    <!-- 카카오지도 api key  -->
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{CLIENT_ID}}&libraries=services"></script>
+    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
+    <title>서울의 맛</title>
 </head>
 <body>
 <div class="wrap nav-top">
-    <nav class="navbar navbar-dark bg-dark px-4">
-        <span class="navbar-brand click" onclick="location.href='/'">서울의 모든 맛집</span>
+    <nav class="navbar px-3">
+        <img src="/static/img/logo.png" class="logo click" onclick="location.href='/'"/>
         {% if login == False %}
         <span id="login-btn" class="" onclick="handleClickLoginPage()">로그인</span>
         {% else %}
@@ -59,12 +64,20 @@
     {% endblock %}
 </div>
 
-<div class="wrap nav-bottom bg-dark">
+<div class="wrap nav-bottom">
     <div class="wrapper">
-        <button class="btn btn-dark" role="button" onclick="main()">메인페이지</button>
-        <button class="btn btn-dark" role="button" onclick="region()">지역별 맛집</button>
-        <button class="btn btn-dark" role="button" onclick="menu()">메뉴별 맛집</button>
-        <button class="btn btn-dark" role="button" onclick="myPage()">마이페이지</button>
+        <button class="btn main-menu" role="button" onclick="main()">
+            <img src="/static/img/icon/house-door-fill.svg" />
+        </button>
+        <button class="btn main-menu" role="button" onclick="region()">
+            <img src="/static/img/icon/map-fill.svg" />
+        </button>
+        <button class="btn main-menu" role="button" onclick="menu()">
+            <img src="/static/img/icon/search.svg" />
+        </button>
+        <button class="btn main-menu" role="button" onclick="myPage()">
+            <img src="/static/img/icon/person-fill.svg" />
+        </button>
     </div>
 </div>
 </body>
