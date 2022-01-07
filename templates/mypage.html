@@ -12,6 +12,7 @@
         </div>
 
         <!--경로 수정해야함 / 파일 업로드 코드(display none 상태임)-->
+        <!-- FIXME: 주소 변경해야함 -->
         <form action="http://localhost:8080/fileupload" method="POST"
               enctype="multipart/form-data">
             <input id="file-input" type="file" name="file" onchange="handleChangeProfileImage()"/>
@@ -20,7 +21,7 @@
 
         <div class="profile-detail">
             <div class="user-info-wrapper">
-                <div class="user-name">{{session['username']}}<span>님</span></span></div>
+                <div class="user-name">{{session['username']}}<span>님</span></div>
                 <div class="user-id">ID: {{session['userid']}}</div>
             </div>
             <button class="btn btn-danger" onclick="handleClickLogout()">로그아웃</button>

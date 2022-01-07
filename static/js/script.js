@@ -169,6 +169,13 @@ function doubleCheckId() {
 // signup.html ---end
 
 // menu.html ---start
+
+function handleKey() {
+    if (window.event.keyCode === 13) {
+        search();
+    }
+}
+
 function search() {
     $("#menu-list").empty()
 
@@ -190,7 +197,7 @@ function search() {
                 const likeCount = result[i]["like"];
                 const rating = result[i]["rating"];
                 const imgsrc = result[i]["imgsrc"];
-                const menu = result[i]["category"];
+                const category = result[i]["category"];
 
                 let temp_html = '';
 
@@ -201,7 +208,7 @@ function search() {
                                         <div class="title">${title}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
-                                        <div class="address">${menu}</div>
+                                        <div class="address">${category}</div>
                                             
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
@@ -219,7 +226,7 @@ function search() {
                                         <div class="title">${title}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
-                                        <div class="address">${menu}</div>
+                                        <div class="address">${category}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
                                             <div onclick="handleClickLike('${title}')" class="click">
@@ -274,6 +281,7 @@ function getLikeList() {
                 const address = shops[i]['address'];
                 const rating = shops[i]['rating'];
                 const imgsrc = shops[i]['imgsrc'];
+                const category = shops[i]['category'];
                 // const link = shops[i]['link'];
 
                 let temp_html = ` <div class="like-item">
@@ -282,6 +290,7 @@ function getLikeList() {
                                         <div class="title click">${title}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
+                                        <div class="address">${category}</div>
                                     </div>
                                 </div>`
 
@@ -310,6 +319,7 @@ function sortLikeList() {
                 const rating = likeList[i]['rating']
                 const likeCount = likeList[i]['like']
                 const imgsrc = likeList[i]['imgsrc']
+                const category = likeList[i]['category']
 
                 let temp_html = '';
 
@@ -320,6 +330,7 @@ function sortLikeList() {
                                         <div class="title">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점: ${rating}</div>
+                                        <div class="address">${category}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
@@ -335,6 +346,7 @@ function sortLikeList() {
                                         <div class="title">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점: ${rating}</div>
+                                        <div class="address">${category}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
@@ -369,6 +381,9 @@ function randomRecommend() {
                 const rating = likeList[i]['rating']
                 const likeCount = likeList[i]['like']
                 const imgsrc = likeList[i]['imgsrc']
+                const category = likeList[i]['category']
+                const review = likeList[i]['review']
+
 
                 let temp_html = '';
 
@@ -379,6 +394,7 @@ function randomRecommend() {
                                         <div class="title">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점: ${rating}</div>
+                                        <div class="address">${category}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
@@ -394,6 +410,7 @@ function randomRecommend() {
                                         <div class="title">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점: ${rating}</div>
+                                        <div class="address">${category}</div>
                                         <div class="like-btn">
                                             <div class="like-count">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">

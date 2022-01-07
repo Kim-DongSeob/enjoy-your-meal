@@ -33,8 +33,8 @@ def home():
 @app.route('/region')
 def route_region():
     if 'userid' in session:
-        return render_template('region.html',login=True)
-    return render_template('region.html',login=False)
+        return render_template('region.html', login=True)
+    return render_template('region.html', login=False)
 
 
 @app.route('/menu')
@@ -67,6 +67,7 @@ def route_signup():
 def route_login():
     # print('login session', session)
     return render_template('login.html')
+
 
 # 회원가입 ---start
 @app.route('/signup', methods=['POST'])
@@ -171,6 +172,7 @@ def get_profile():
         return jsonify({"result": doc})
     return jsonify({"result": '이미지가 없어염'})
 
+
 # 프로필 이미지 ---end
 
 # 메뉴별 맛집 리스트 ---start
@@ -186,14 +188,19 @@ def search():
 
     # regex는 db에서 특정 문자열이 포함 여부 확인
     if select_value_receive == '전체':
-        search_list = list(db.shops
-                           .find({'category': {"$regex": keyword_receive}}, {'_id': False}))
+        search_list = list(db.shops.find({"$or": [{'category': {"$regex": keyword_receive}},
+                                                  {'name': {"$regex": keyword_receive}}]}, {'_id': False}))
     elif keyword_receive == '':
         search_list = list(db.shops.find({'address': {"$regex": select_value_receive}}, {'_id': False}))
     else:
-        search_list = list(
-            db.shops.find({'address': {"$regex": select_value_receive}, 'category': {"$regex": keyword_receive}},
-                          {'_id': False}))
+        # select_list = list(
+        #     db.shops.find({'address': {"$regex": select_value_receive}, 'category': {"$regex": keyword_receive}},
+        #                   {'_id': False}))
+        # search_list =
+        search_list = list(db.shops.find(
+            {'address': {"$regex": select_value_receive}, "$or": [{'category': {"$regex": keyword_receive}},
+                                                                  {'name': {"$regex": keyword_receive}}]},
+            {'_id': False}))
 
     return jsonify({'result': search_list, 'like_list': user_like_list})
 
@@ -239,6 +246,7 @@ def post_like():
     else:
         return jsonify({'error': '로그인이 필요합니다. 로그인 페이지로 이동합니다.'})
 
+
 # 좋아요 클릭---end
 
 # 좋아요 순위별 정렬 ---start
@@ -252,6 +260,7 @@ def sort_like_list():
         user_like_list = user['like-list']
 
     return jsonify({'result': like_list, 'user_like_list': user_like_list})
+
 
 # 좋아요 순위별 정렬 ---end
 
