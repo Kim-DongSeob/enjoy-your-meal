@@ -10,4 +10,5 @@ selenium
 
 python-dotenv
 
+haversine
 ...

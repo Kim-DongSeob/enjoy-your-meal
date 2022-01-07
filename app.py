@@ -1,5 +1,8 @@
+import json
+
 from bson import ObjectId
 from flask import Flask, render_template, jsonify, request, redirect, session
+from haversine import haversine
 
 app = Flask(__name__)
 
@@ -134,7 +137,7 @@ def logout():
 
 # 프로필 이미지 ---start
 # 프로필 이미지 저장
-@app.route('/fileupload', methods=['POST'])
+@app.route('/mypage', methods=['POST'])
 def upload_file():
     image_path = 'static/uploads/' + str(session['userid'])  # 유저아이디에 따른 이미지 폴더 경로
     os.makedirs(image_path, exist_ok=True)  # 폴더 생성
@@ -174,6 +177,23 @@ def get_profile():
 
 
 # 프로필 이미지 ---end
+
+# 내주변 맛집
+@app.route('/region', methods=['POST'])
+def marker():
+    receive_datas = request.form['sendDatas']
+    datas = json.loads(receive_datas)
+
+    loc = datas['loc']
+    start = datas['start']
+    goal = datas['goal']
+
+    # start ~ goal 거리 계산 후 해당 거리의 1/3만큼 현재위치의 반경 검색
+    result = (haversine(start, goal, unit='mi')) / 3
+    radius = result / 3963.2
+
+    near_stores = list(db.shops.find({"loc": {"$geoWithin": {"$centerSphere": [loc, radius]}}}, {'_id': False}))
+    return jsonify({'stores': near_stores})
 
 # 메뉴별 맛집 리스트 ---start
 @app.route("/search", methods=["POST"])
