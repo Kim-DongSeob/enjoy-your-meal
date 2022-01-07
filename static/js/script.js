@@ -284,13 +284,18 @@ function getLikeList() {
                 const category = shops[i]['category'];
                 // const link = shops[i]['link'];
 
-                let temp_html = ` <div class="like-item">
+                let temp_html = ` <div class="like-item" style="position: relative">
                                     <img src="${imgsrc}" />
                                     <div class="desc-wrapper">
                                         <div class="title click">${title}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="address">${category}</div>
+                                    </div>
+                                    <div >
+                                        <div onclick="handleClickLike('${title}')" class="click" style="position: absolute; left: 700px; top: 30px">
+                                            <img src="/static/img/icon/suit-heart-fill.svg" style="width: 30px"/>
+                                        </div>
                                     </div>
                                 </div>`
 
