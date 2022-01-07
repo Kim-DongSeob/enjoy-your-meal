@@ -193,10 +193,6 @@ def search():
     elif keyword_receive == '':
         search_list = list(db.shops.find({'address': {"$regex": select_value_receive}}, {'_id': False}))
     else:
-        # select_list = list(
-        #     db.shops.find({'address': {"$regex": select_value_receive}, 'category': {"$regex": keyword_receive}},
-        #                   {'_id': False}))
-        # search_list =
         search_list = list(db.shops.find(
             {'address': {"$regex": select_value_receive}, "$or": [{'category': {"$regex": keyword_receive}},
                                                                   {'name': {"$regex": keyword_receive}}]},

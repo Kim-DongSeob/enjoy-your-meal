@@ -191,8 +191,9 @@ function search() {
             const result = response["result"];
             const likeList = response['like_list']
 
+
             for (let i = 0; i < result.length; i++) {
-                const title = result[i]["name"];
+                const name = result[i]["name"];
                 const address = result[i]["address"];
                 const likeCount = result[i]["like"];
                 const rating = result[i]["rating"];
@@ -201,19 +202,19 @@ function search() {
 
                 let temp_html = '';
 
-                if (likeList.includes(title)) {
+                if (likeList.includes(name)) {
                     temp_html = `<div id="menu-item" class="menu-item">
                                     <img src="${imgsrc}"/>
                                     <div class="item-wrapper">
-                                        <div class="title">${title}</div>
+                                        <div class="title">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="address">${category}</div>
                                             
                                         <div class="like-btn">
-                                            <div class="like-count">${likeCount}</div>
-                                            <div onclick="handleClickLike('${title}')" class="click">
-                                                <img src="/static/img/icon/suit-heart-fill.svg"/>
+                                            <div class="like-count" class="${name}">${likeCount}</div>
+                                            <div onclick="handleClickLike('${name}')" class="click">
+                                                <img src="/static/img/icon/suit-heart-fill.svg" class="${name} active"/>
                                             </div>
                                         </div>
                                     </div>
@@ -223,19 +224,18 @@ function search() {
                     temp_html = `<div id="menu-item" class="menu-item">
                                     <img src="${imgsrc}"/>
                                     <div class="item-wrapper">
-                                        <div class="title">${title}</div>
+                                        <div class="title">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="address">${category}</div>
                                         <div class="like-btn">
-                                            <div class="like-count">${likeCount}</div>
-                                            <div onclick="handleClickLike('${title}')" class="click">
-                                                <img src="/static/img/icon/suit-heart.svg"/>
+                                            <div class="like-count ${name}">${likeCount}</div>
+                                            <div onclick="handleClickLike('${name}')" class="click">
+                                                <img src="/static/img/icon/suit-heart.svg" class="${name}"/>
                                             </div>
                                         </div>
                                     </div>
                                 </div>`
-
                 }
                 $("#menu-list").append(temp_html)
             }
@@ -246,19 +246,53 @@ function search() {
 // menu.html ---end
 
 // (공통)좋아요 클릭 함수 구현 ---start
+function changeLikeStatus(name) {
+    const elements = document.getElementsByClassName(`${name}`);
+
+    const countElement = elements.item(0);  // 카운트 element
+    const iconElement = elements.item(1);  // 좋아요 아이콘 element
+
+    const currentCount = countElement.innerText;
+    const num = Number(currentCount);
+
+    // const currentIcon = iconElement.classList.contains('active');
+    const currentIcon = iconElement.getAttribute('src') === '/static/img/icon/suit-heart.svg';
+
+    // console.log(currentIcon)
+
+    if (currentIcon) {
+        countElement.innerText = (num + 1).toString();
+        iconElement.setAttribute('src', '/static/img/icon/suit-heart-fill.svg');
+    } else {
+        countElement.innerText = (num - 1).toString();
+        iconElement.setAttribute('src', '/static/img/icon/suit-heart.svg');
+    }
+}
+
 function handleClickLike(name) {
     $.ajax({
         type: "POST",
         url: "/like",
         data: {name_give: name},
         success: function (response) {
-            // alert(response['msg'])
-            window.location.reload()
+            changeLikeStatus(name)
+            // window.location.reload()
 
             if (response['error']) {
                 alert(response['error'])
                 location.href = 'login'
             }
+        }
+    })
+}
+
+function handleClickMypageLike(name) {
+    $.ajax({
+        type: "POST",
+        url: "/like",
+        data: {name_give: name},
+        success: function (response) {
+
         }
     })
 }
@@ -292,10 +326,8 @@ function getLikeList() {
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="address">${category}</div>
                                     </div>
-                                    <div >
-                                        <div onclick="handleClickLike('${title}')" class="click" style="position: absolute; left: 700px; top: 30px">
-                                            <img src="/static/img/icon/suit-heart-fill.svg" style="width: 30px"/>
-                                        </div>
+                                    <div onclick="handleClickMypageLike('${title}')" class="click" style="margin-right: 20px">
+                                        <img src="/static/img/icon/suit-heart-fill.svg" style="width: 30px"/>
                                     </div>
                                 </div>`
 
@@ -337,9 +369,9 @@ function sortLikeList() {
                                         <div class="address">평점: ${rating}</div>
                                         <div class="address">${category}</div>
                                         <div class="like-btn">
-                                            <div class="like-count">${likeCount}</div>
+                                            <div class="like-count ${name}">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
-                                                <img src="/static/img/icon/suit-heart-fill.svg"/>
+                                                <img src="/static/img/icon/suit-heart-fill.svg" class="${name} active"/>
                                             </div>
                                         </div>
                                     </div>
@@ -353,9 +385,9 @@ function sortLikeList() {
                                         <div class="address">평점: ${rating}</div>
                                         <div class="address">${category}</div>
                                         <div class="like-btn">
-                                            <div class="like-count">${likeCount}</div>
+                                            <div class="like-count ${name}">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
-                                                <img src="/static/img/icon/suit-heart.svg"/>
+                                                <img src="/static/img/icon/suit-heart.svg" class="${name}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -387,7 +419,6 @@ function randomRecommend() {
                 const likeCount = likeList[i]['like']
                 const imgsrc = likeList[i]['imgsrc']
                 const category = likeList[i]['category']
-                const review = likeList[i]['review']
 
 
                 let temp_html = '';
@@ -401,9 +432,9 @@ function randomRecommend() {
                                         <div class="address">평점: ${rating}</div>
                                         <div class="address">${category}</div>
                                         <div class="like-btn">
-                                            <div class="like-count">${likeCount}</div>
+                                            <div class="like-count ${name}">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
-                                                <img src="/static/img/icon/suit-heart-fill.svg"/>
+                                                <img src="/static/img/icon/suit-heart-fill.svg" class="${name} active"/>
                                             </div>
                                         </div>
                                     </div>
@@ -417,9 +448,9 @@ function randomRecommend() {
                                         <div class="address">평점: ${rating}</div>
                                         <div class="address">${category}</div>
                                         <div class="like-btn">
-                                            <div class="like-count">${likeCount}</div>
+                                            <div class="like-count ${name}">${likeCount}</div>
                                             <div onclick="handleClickLike('${name}')" class="click">
-                                                <img src="/static/img/icon/suit-heart.svg"/>
+                                                <img src="/static/img/icon/suit-heart.svg" class="${name}"/>
                                             </div>
                                         </div>
                                         </div>

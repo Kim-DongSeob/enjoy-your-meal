@@ -176,10 +176,12 @@ button:focus, button:active {
     height: inherit;
     /*padding: 8px;*/
 }
+
 .nav-bottom .wrapper button.btn {
     height: inherit;
     position: relative;
 }
+
 .nav-bottom .wrapper button.btn:after {
     content: '';
     display: inline-block;
@@ -191,9 +193,11 @@ button:focus, button:active {
     top: 50%;
     transform: translateY(-50%);
 }
+
 .nav-bottom .wrapper button.btn:last-child:after {
     display: none;
 }
+
 .nav-bottom .wrapper button img {
     width: 20px;
     height: 20px;
@@ -380,7 +384,7 @@ button:focus, button:active {
 
 .profile-img {
     border: none;
-    /*width: 100%;*/
+    width: 100%;
     height: 100%;
     object-fit: cover;
     outline: none;
@@ -523,7 +527,7 @@ button:focus, button:active {
     border: 1px solid var(--gray400);
     border-radius: 8px;
     margin: 16px 0;
-    height: 100px;
+    height: 120px;
     overflow: hidden;
 }
 
@@ -535,15 +539,24 @@ button:focus, button:active {
 
 #like-list .like-item .desc-wrapper {
     margin-left: 20px;
+    flex: 1;
 }
 
 #like-list .like-item .desc-wrapper .title {
     font-size: 18px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 400px;
 }
 
 #like-list .like-item .desc-wrapper .address {
     font-size: 14px;
     color: var(--custom-secondary);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 400px;
 }
 
 .horizontal-list {
