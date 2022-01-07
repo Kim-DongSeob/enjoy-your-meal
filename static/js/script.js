@@ -269,6 +269,22 @@ function changeLikeStatus(name) {
     }
 }
 
+function changeMyLikeStatus(name) {
+    const elements = document.getElementsByClassName(`${name}`);
+    const container = elements.item(0);  // 좋아요 아이콘 element
+    const iconElement = elements.item(1);  // 좋아요 아이콘 element
+
+    const currentIcon = iconElement.getAttribute('src') !== '/static/img/icon/suit-heart.svg';
+
+    if (currentIcon) {
+        iconElement.setAttribute('src', '/static/img/icon/suit-heart.svg');
+        container.style.transform = `translateX(1000px)`;
+        container.style.height = `0`;
+        container.style.margin = `0`;
+        container.style.transition = `transform 0.5s ease, height 0.5s ease 0.5s, margin 0.5s ease 0.5s`;
+    }
+}
+
 function handleClickLike(name) {
     $.ajax({
         type: "POST",
@@ -276,7 +292,6 @@ function handleClickLike(name) {
         data: {name_give: name},
         success: function (response) {
             changeLikeStatus(name)
-            // window.location.reload()
 
             if (response['error']) {
                 alert(response['error'])
@@ -291,8 +306,8 @@ function handleClickMypageLike(name) {
         type: "POST",
         url: "/like",
         data: {name_give: name},
-        success: function (response) {
-
+        success: function () {
+            changeMyLikeStatus(name);
         }
     })
 }
@@ -311,23 +326,22 @@ function getLikeList() {
             console.log(shops)
 
             for (let i = 0; i < shops.length; i++) {
-                const title = shops[i]['name'];
+                const name = shops[i]['name'];
                 const address = shops[i]['address'];
                 const rating = shops[i]['rating'];
                 const imgsrc = shops[i]['imgsrc'];
                 const category = shops[i]['category'];
-                // const link = shops[i]['link'];
 
-                let temp_html = ` <div class="like-item" style="position: relative">
+                let temp_html = ` <div class="like-item ${name}">
                                     <img src="${imgsrc}" />
                                     <div class="desc-wrapper">
-                                        <div class="title click">${title}</div>
+                                        <div class="title click">${name}</div>
                                         <div class="address">${address}</div>
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="address">${category}</div>
                                     </div>
-                                    <div onclick="handleClickMypageLike('${title}')" class="click" style="margin-right: 20px">
-                                        <img src="/static/img/icon/suit-heart-fill.svg" style="width: 30px"/>
+                                    <div onclick="handleClickMypageLike('${name}')" class="click" style="margin-right: 20px">
+                                        <img src="/static/img/icon/suit-heart-fill.svg" style="width: 30px" class="${name}"/>
                                     </div>
                                 </div>`
 
