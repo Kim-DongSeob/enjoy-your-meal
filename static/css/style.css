@@ -1,6 +1,10 @@
 * {
     /*font-family: 'Dongle', sans-serif;*/
-    font-family: 'Noto Sans', sans-serif;
+    font-family: sans-serif;
+}
+
+.btn{
+    width: 190px;
 }
 
 .wrap {
@@ -36,32 +40,6 @@ a:hover {
     --black: #333333;
 }
 
-@font-face {
-    font-family: 'Noto Sans';
-    font-weight: 400;
-    src: url(/static/fonts/NotoSansKR-Regular.otf);
-}
-
-@font-face {
-    font-family: 'Noto Sans';
-    font-weight: 500;
-    src: url(/static/fonts/NotoSansKR-Medium.otf);
-}
-
-
-@font-face {
-    font-family: 'Noto Sans';
-    font-weight: 300;
-    src: url(/static/fonts/NotoSansKR-Light.otf);
-}
-
-
-@font-face {
-    font-family: 'Noto Sans';
-    font-weight: 700;
-    src: url(/static/fonts/NotoSansKR-Bold.otf);
-}
-
 html {
     height: 100%;
 }
@@ -92,33 +70,25 @@ button:focus, button:active {
     overflow-y: overlay;
 }
 
+.overflow-y-auto::-webkit-scrollbar {
+            display: none;
+        }
+
 .click {
     cursor: pointer;
 }
-
-.content-wrapper {
-    margin: 30px 0;
-}
-
 .content-header {
     display: flex;
-    margin-bottom: 16px;
-}
 
+}
 .content-header .title {
     /*display: inline-block;*/
     /*border-bottom: 1px solid var(--custom-primary);*/
-    margin: 0;
-    font-weight: 500;
 }
-
 .content-header .desc {
     font-size: 14px;
     color: var(--custom-secondary);
-    display: flex;
-    align-items: center;
 }
-
 .content-header .desc:before {
     content: '';
     display: inline-block;
@@ -137,13 +107,6 @@ button:focus, button:active {
     z-index: 10;
 }
 
-.nav-top .logo {
-    width: 90px;
-}
-.nav-top .navbar {
-    max-height: 60px;
-    min-height: 60px;
-}
 .nav-top nav .navbar-brand {
     font-family: 'Dongle', sans-serif;
     font-size: 30px;
@@ -175,12 +138,13 @@ button:focus, button:active {
 }
 
 .body-wrapper {
-    margin: 60px auto 60px auto;
-    height: calc(100% - 120px);
+    margin: 56px auto 60px auto;
+    height: calc(100% - 116px);
 }
 
 #login-btn {
     cursor: pointer;
+    color: white;
 }
 
 /* main.html */
@@ -230,9 +194,9 @@ button:focus, button:active {
     align-items: center;
 }
 
-/*.main-profile-wrapper * {*/
-/*    font-family: 'Noto Sans', sans-serif;*/
-/*}*/
+.main-profile-wrapper * {
+    font-family: sans-serif;
+}
 
 .main-profile-wrapper .account {
     display: flex;
@@ -242,19 +206,14 @@ button:focus, button:active {
 
 .main-profile-wrapper .account span {
     font-size: 14px;
-    /*color: white;*/
-    line-height: 1.2;
-}
-.main-profile-wrapper .account span:last-child {
-    font-size: 12px;
-    color: var(--custom-secondary);
+    color: white;
     line-height: 1.2;
 }
 
 /* 회원가입, 로그인 page */
-/*.sign-up * {*/
-/*    font-family: sans-serif;*/
-/*}*/
+.sign-up * {
+    font-family: sans-serif;
+}
 
 .sign-up {
     display: flex;
@@ -305,9 +264,9 @@ button:focus, button:active {
     display: flex;
 }
 
-/*.profile-info * {*/
-/*    font-family: sans-serif;*/
-/*}*/
+.profile-info * {
+    font-family: sans-serif;
+}
 
 .profile-detail {
     display: flex;
@@ -367,32 +326,39 @@ button:focus, button:active {
     object-fit: cover;
 }
 
-.profile-info .img-container {
-    position: relative;
-}
 
 .hover-element {
+    background: rgba(0, 0, 0, 0);
+    width: 150px;
+    height: 150px;
     position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background: var(--gray400);
-    border-radius: 10em;
-    width: 35px;
-    height: 35px;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    opacity: 0;
+    cursor: pointer;
 }
 
-.hover-element:hover {
-    background: var(--gray600);
+.hover-element div {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
-.hover-element img {
-    width: 20px;
-    height: 20px;
+.hover-element:hover, .hover-element:focus {
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
+
 
 .divider {
     width: 100%;
@@ -411,9 +377,9 @@ button:focus, button:active {
 }
 
 /* menu.html */
-/*.menu-page * {*/
-/*    font-family: sans-serif;*/
-/*}*/
+.menu-page * {
+    font-family: sans-serif;
+}
 
 .menu-page .wrapper {
     display: flex;
@@ -480,11 +446,6 @@ button:focus, button:active {
     justify-content: flex-end;
     margin-top: 16px;
     align-items: center;
-}
-
-.menu-page #menu-list .menu-item .item-wrapper .like-btn img {
-    width: 25px;
-    height: 25px;
 }
 
 .menu-page #menu-list .menu-item .item-wrapper .like-btn .like-count {
@@ -607,9 +568,4 @@ button:focus, button:active {
     margin-right: 10px;
     color: #e91550;
     font-size: 14px;
-}
-
-.horizontal-list .item .item-wrapper .like-btn img {
-    width: 25px;
-    height: 25px;
 }
