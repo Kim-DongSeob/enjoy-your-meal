@@ -140,9 +140,6 @@ button:focus, button:active {
     left: 50%;
     top: 0;
     z-index: 10;
-    /*border-bottom: 2px solid var(--custom-secondary);*/
-    /*background: white;*/
-    /*box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);*/
     background: var(--gray800);
 }
 
