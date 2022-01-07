@@ -1,5 +1,4 @@
 * {
-    /*font-family: 'Dongle', sans-serif;*/
     font-family: 'Noto Sans', sans-serif;
 }
 
@@ -111,8 +110,6 @@ button:focus, button:active {
 }
 
 .content-header .title {
-    /*display: inline-block;*/
-    /*border-bottom: 1px solid var(--custom-primary);*/
     margin: 0;
     font-weight: 500;
 }
@@ -272,7 +269,6 @@ button:focus, button:active {
 
 .main-profile-wrapper .account span {
     font-size: 14px;
-    /*color: white;*/
     line-height: 1.2;
 }
 
@@ -283,10 +279,6 @@ button:focus, button:active {
 }
 
 /* 회원가입, 로그인 page */
-/*.sign-up * {*/
-/*    font-family: sans-serif;*/
-/*}*/
-
 .sign-up {
     display: flex;
     align-items: center;
@@ -336,10 +328,6 @@ button:focus, button:active {
     display: flex;
 }
 
-/*.profile-info * {*/
-/*    font-family: sans-serif;*/
-/*}*/
-
 .profile-detail {
     display: flex;
     flex-direction: column;
@@ -373,7 +361,6 @@ button:focus, button:active {
     border-radius: 10em;
     overflow: hidden;
     position: relative;
-    /*background: var(--gray100);*/
     background-image: url("/static/img/basic-profile.png");
     background-repeat: no-repeat;
     background-size: 100px 100px;
@@ -445,16 +432,10 @@ button:focus, button:active {
 }
 
 /* menu.html */
-/*.menu-page * {*/
-/*    font-family: sans-serif;*/
-/*}*/
-
 .menu-page .wrapper {
     display: flex;
     column-gap: 8px;
     margin: 30px 0;
-    /*position: fixed;*/
-    /*top: 60px;*/
 }
 
 .menu-page .wrapper .form-select {
@@ -481,7 +462,6 @@ button:focus, button:active {
     width: 100%;
     column-gap: 8px;
     row-gap: 8px;
-    /*margin-top: 100px;*/
 }
 
 .menu-page #menu-list .menu-item {
@@ -609,7 +589,6 @@ button:focus, button:active {
 
 .horizontal-list .list-wrapper {
     display: flex;
-    /*grid-template-columns: 1fr 1fr 1fr;*/
     width: 100%;
     column-gap: 8px;
 }
