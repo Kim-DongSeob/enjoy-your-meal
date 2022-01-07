@@ -141,18 +141,23 @@ button:focus, button:active {
     top: 0;
     z-index: 10;
     /*border-bottom: 2px solid var(--custom-secondary);*/
-    background: white;
-    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);
+    /*background: white;*/
+    /*box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.2);*/
+    background: var(--gray800);
 }
 
 .nav-top .logo {
-    width: 90px;
+    height: 40px;
 }
 
 .nav-top .navbar {
     max-height: 60px;
     min-height: 60px;
-    /*box-shadow: 0 0 5px 1px rgba(0,0,0,0.2);*/
+}
+
+.nav-top .navbar .login-btn {
+    color: white;
+    font-size: 14px;
 }
 
 .nav-top nav .navbar-brand {
@@ -210,10 +215,6 @@ button:focus, button:active {
     background: white;
 }
 
-#login-btn {
-    cursor: pointer;
-}
-
 /* main.html */
 .banner {
     position: relative;
@@ -269,6 +270,7 @@ button:focus, button:active {
     display: flex;
     flex-direction: column;
     margin-left: 8px;
+    color: white;
 }
 
 .main-profile-wrapper .account span {

@@ -41,12 +41,12 @@
 </head>
 <body>
 <div class="wrap nav-top">
-    <nav class="navbar px-3">
+    <nav class="navbar px-4">
         <img src="/static/img/logo.png" class="logo click" onclick="location.href='/'"/>
         {% if login == False %}
-        <span id="login-btn" class="" onclick="handleClickLoginPage()">로그인</span>
+        <span id="login-btn" class="login-btn click" onclick="handleClickLoginPage()">Login</span>
         {% else %}
-        <div class="main-profile-wrapper">
+        <div class="main-profile-wrapper click" onclick="myPage()">
             <div class="profile-img-wrapper small">
                 <img id="profile-img-small" class="profile-img" alt=""/>
             </div>
