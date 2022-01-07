@@ -30,20 +30,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@700&display=swap" rel="stylesheet">
 
-
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script type="text/javascript" src="../static/js/script.js"></script>
-    <!-- 카카오지도 api key  -->
-    <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{CLIENT_ID}}&libraries=services"></script>
-    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
-    <title>서울의 맛</title>
+    <title>사전스터디 14팀 토이프로젝트</title>
 </head>
 <body>
 <div class="wrap nav-top">
-    <nav class="navbar px-3">
-        <img src="/static/img/logo.png" class="logo"/>
-<!--        <span class="navbar-brand click" onclick="location.href='/'">서울의 모든 맛집</span>-->
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <span class="navbar-brand click" onclick="location.href='/'">서울의 모든 맛집</span>
         {% if login == False %}
         <span id="login-btn" class="" onclick="handleClickLoginPage()">로그인</span>
         {% else %}
@@ -70,24 +64,8 @@
         <button class="btn btn-dark" role="button" onclick="main()">메인페이지</button>
         <button class="btn btn-dark" role="button" onclick="region()">지역별 맛집</button>
         <button class="btn btn-dark" role="button" onclick="menu()">메뉴별 맛집</button>
-        <button class="btn btn-dark" role="button" onclick="review()">후 기</button>
         <button class="btn btn-dark" role="button" onclick="myPage()">마이페이지</button>
     </div>
 </div>
 </body>
-<script>
-    // 카카오 지도 만들기
-    var mapContainer = document.getElementById('map'),
-        // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
-            level: 8 // 지도의 확대 레벨ㅁㄴ이ㅏ러ㅗ
-        };
-
-    // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-</script>
 </html>

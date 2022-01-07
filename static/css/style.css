@@ -69,7 +69,6 @@ html {
 body {
     height: 100%;
     overflow: hidden;
-    background: var(--global-bg);
 }
 
 @media screen and (max-width: 800px) {
@@ -92,6 +91,10 @@ button:focus, button:active {
 .overflow-y-auto {
     overflow-y: overlay;
 }
+
+.overflow-y-auto::-webkit-scrollbar {
+            display: none;
+        }
 
 .click {
     cursor: pointer;
@@ -587,9 +590,6 @@ button:focus, button:active {
     border-radius: 10em;
     width: 30px;
     height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .horizontal-list .arrow-btn img {
