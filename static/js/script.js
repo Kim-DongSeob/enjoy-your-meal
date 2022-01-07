@@ -246,6 +246,8 @@ function search() {
 // menu.html ---end
 
 // (공통)좋아요 클릭 함수 구현 ---start
+
+// 시각적으로 보이도록 좋아요 및 좋아요 취소 구현 ---start
 function changeLikeStatus(name) {
     const elements = document.getElementsByClassName(`${name}`);
 
@@ -268,7 +270,9 @@ function changeLikeStatus(name) {
         iconElement.setAttribute('src', '/static/img/icon/suit-heart.svg');
     }
 }
+// 시각적으로 보이도록 좋아요 및 좋아요 취소 구현 ---end
 
+// (마이페이지) 시각적으로 보이도록 좋아요 취소 구현 ---start
 function changeMyLikeStatus(name) {
     const elements = document.getElementsByClassName(`${name}`);
     const container = elements.item(0);  // 좋아요 아이콘 element
@@ -285,6 +289,7 @@ function changeMyLikeStatus(name) {
     }
 }
 
+// 좋아요 클릭 이벤트 ---start
 function handleClickLike(name) {
     $.ajax({
         type: "POST",
@@ -300,8 +305,11 @@ function handleClickLike(name) {
         }
     })
 }
+// 좋아요 클릭 이벤트 ---end
 
-function handleClickMypageLike(name) {
+
+// 마이페이지 좋아요 취소 클릭 이벤트 ---start
+function handleClickMyPageCancelLike(name) {
     $.ajax({
         type: "POST",
         url: "/like",
@@ -311,6 +319,7 @@ function handleClickMypageLike(name) {
         }
     })
 }
+// 마이페이지 좋아요 취소 클릭 이벤트 ---end
 
 // (공통)좋아요 클릭 함수 구현 ---end
 
@@ -340,7 +349,7 @@ function getLikeList() {
                                         <div class="address">평점 : ${rating}</div>
                                         <div class="address">${category}</div>
                                     </div>
-                                    <div onclick="handleClickMypageLike('${name}')" class="click" style="margin-right: 20px">
+                                    <div onclick="handleClickMyPageCancelLike('${name}')" class="click" style="margin-right: 20px">
                                         <img src="/static/img/icon/suit-heart-fill.svg" style="width: 30px" class="${name}"/>
                                     </div>
                                 </div>`
