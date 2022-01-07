@@ -134,7 +134,7 @@ def logout():
 
 # 프로필 이미지 ---start
 # 프로필 이미지 저장
-@app.route('/fileupload', methods=['POST'])
+@app.route('/mypage', methods=['POST'])
 def upload_file():
     image_path = 'static/uploads/' + str(session['userid'])  # 유저아이디에 따른 이미지 폴더 경로
     os.makedirs(image_path, exist_ok=True)  # 폴더 생성

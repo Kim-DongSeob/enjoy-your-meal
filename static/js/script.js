@@ -72,6 +72,11 @@ function handleClickLogout() {
 function handleChangeProfileImage() {
     $('#file-save-btn').click();
 }
+function currentPath() {
+    const path = window.location.href;
+    console.log(path);
+    $('#file-form').attr('action', `${path}`);
+}
 
 
 $(document).ready(function () {
@@ -285,7 +290,8 @@ function changeMyLikeStatus(name) {
         container.style.transform = `translateX(1000px)`;
         container.style.height = `0`;
         container.style.margin = `0`;
-        container.style.transition = `transform 0.5s ease, height 0.5s ease 0.5s, margin 0.5s ease 0.5s`;
+        container.style.border = `none`;
+        container.style.transition = `transform 0.5s ease, height 0.5s ease 0.5s, margin 0.5s ease 0.5s, border 0.5s ease 0.5s`;
     }
 }
 
