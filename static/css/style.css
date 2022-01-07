@@ -137,6 +137,13 @@ button:focus, button:active {
     z-index: 10;
 }
 
+.nav-top .logo {
+    width: 90px;
+}
+.nav-top .navbar {
+    max-height: 60px;
+    min-height: 60px;
+}
 .nav-top nav .navbar-brand {
     font-family: 'Dongle', sans-serif;
     font-size: 30px;
@@ -168,13 +175,12 @@ button:focus, button:active {
 }
 
 .body-wrapper {
-    margin: 56px auto 60px auto;
-    height: calc(100% - 116px);
+    margin: 60px auto 60px auto;
+    height: calc(100% - 120px);
 }
 
 #login-btn {
     cursor: pointer;
-    color: white;
 }
 
 /* main.html */
@@ -236,7 +242,12 @@ button:focus, button:active {
 
 .main-profile-wrapper .account span {
     font-size: 14px;
-    color: white;
+    /*color: white;*/
+    line-height: 1.2;
+}
+.main-profile-wrapper .account span:last-child {
+    font-size: 12px;
+    color: var(--custom-secondary);
     line-height: 1.2;
 }
 
