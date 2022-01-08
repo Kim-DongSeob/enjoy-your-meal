@@ -129,7 +129,7 @@ def login():
 def logout():
     session.clear()
     print(session)
-    return redirect('/')
+    return render_template('main.html', login=False)
 
 
 # 로그인 & 로그아웃 ---end

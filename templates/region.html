@@ -1,8 +1,8 @@
 {% extends 'index.html' %}
 {% block content %}
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<!--    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>-->
+<!--    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>-->
 
     <!--naver Maps-->
     <script type="text/javascript"
@@ -15,15 +15,11 @@
     <script src="../../myproject/static/script.js"></script>
 </head>
 
-<!--<nav class="navbar navbar-dark bg-none pb-0">-->
-<!--    <span class="navbar-brand text-dark mb-0 p-0"><h1>지도로 보기</h1></span>-->
-<!--</nav>-->
-
 <div id="map" style="width: inherit;height: 100%;overflow: hidden;"></div>
 <script>
     function onSuccessGeolocation(position) {
         var locationBtnHtml = '<button class="current-location-btn">현재 위치로 이동</button>';
-   도    var markers = [];
+        var markers = [];
         var infoWindows = [];
 
         //현재 위치 정보 저장
@@ -94,13 +90,13 @@
                         console.log(address)
 
                         var contentString = `
-                                    <div class="iw_inner" style="padding:0px 10px 0px 10px;margin:0px">
-                                        <h4 style="text-align: right">${category}</h4>
-                                        <h1>${name}</h1>
-                                        <h4>${address}<br />
+                                    <div class="iw_inner" style="padding:5px 15px 0px 15px">
+                                        <h6 style="text-align: right">${category}</h6>
+                                        <h3>${name}</h3>
+                                        <h6>${address}<br />
                                             <img src="${img}" height="150" alt="이미지" class="thumb" /><br />
                                             <div style="color: darkgoldenrod;margin-bottom: 0px">★ : ${rating}</div><div style="color: red">♥: ${like}</div>
-                                        </h4>
+                                        </h6>
                                     </div>
                                     `
                         $('#swiper-wrapper').append(contentString);
@@ -124,7 +120,7 @@
                             content: contentString,
                             maxWidth: 500,
                             borderWidth: 3,
-                            backgroundColor:"#eee"
+                            backgroundColor: "#eee"
                         });
 
                         markers.push(marker)
@@ -190,10 +186,7 @@
             infowindow.open(map, center);
         }
     })
-
 </script>
-
-
 <!-- Slider main container -->
 <!--<div class="swiper">-->
 <!--    &lt;!&ndash; Additional required wrapper &ndash;&gt;-->
