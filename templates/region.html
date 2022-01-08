@@ -7,22 +7,23 @@
     <!--naver Maps-->
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=wgv3kenwp7"></script>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <!--naver Maps Submodule Geocode-->
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=wgv3kenwp7&submodules=geocoder"></script>
     <script src="../../myproject/static/script.js"></script>
-
 </head>
 
-<nav class="navbar navbar-dark bg-none pb-0">
-    <span class="navbar-brand text-dark mb-0 p-0"><h1>지도로 보기</h1></span>
-</nav>
+<!--<nav class="navbar navbar-dark bg-none pb-0">-->
+<!--    <span class="navbar-brand text-dark mb-0 p-0"><h1>지도로 보기</h1></span>-->
+<!--</nav>-->
 
-<div id="map" style="width: inherit;height:800px;position: absolute;overflow: hidden;"></div>
+<div id="map" style="width: inherit;height: 100%;overflow: hidden;"></div>
 <script>
     function onSuccessGeolocation(position) {
-        var locationBtnHtml = '<button href="#">현재위치로</button>';
-        var markers = [];
+        var locationBtnHtml = '<button class="current-location-btn">현재 위치로 이동</button>';
+   도    var markers = [];
         var infoWindows = [];
 
         //현재 위치 정보 저장
@@ -53,7 +54,7 @@
 
         //현재 위치 InfoWindow 생성 및 표시
         var myLocation = new naver.maps.InfoWindow();
-        myLocation.setContent('<div style="padding:3px;">' + '현재 위치!' + '</div>');
+        myLocation.setContent('<div class="current-location">' + '현재 위치!' + '</div>');
         myLocation.open(map, location);
 
 
@@ -108,7 +109,14 @@
                         var marker = new naver.maps.Marker({
                             map: map,
                             position: point,
-                            zIndex: 100
+                            zIndex: 100,
+                            // icon: {
+                            //     content: [
+                            //         `<div style="background: red">`
+                            //
+                            //         `</div>`
+                            //     ].join(''),
+                            // }
                         })
 
                         //정보창 생성

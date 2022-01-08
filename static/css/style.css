@@ -652,3 +652,29 @@ button:focus, button:active {
     width: 25px;
     height: 25px;
 }
+
+.current-location-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 130px;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 8px 12px;
+}
+
+.current-location-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.current-location {
+    padding: 3px 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
